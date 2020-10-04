@@ -23,7 +23,20 @@ namespace Musebox_Web_Project.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult About()
+        {
+            return View();
+        }
+
+        public IActionResult Contact()
+        {
+            return View();
+        }
+        public IActionResult Store()
+        {
+            return View();
+        }
+        public IActionResult Login()
         {
             return View();
         }
