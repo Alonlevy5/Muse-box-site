@@ -720,7 +720,7 @@ section {
   font-size: 14px;
 }
 
-.Home-Contact .php-email-form input::focus, .Home-Contact .php-email-form textarea::focus {
+.Home-Contact .php-email-form input:focus, .Home-Contact .php-email-form textarea:focus {
   background-color: #02b2b2;
 }
 
@@ -1486,7 +1486,7 @@ section {
   font-size: 14px;
 }
 
-.contact .php-email-form input::focus, .contact .php-email-form textarea::focus {
+.contact .php-email-form input:focus, .contact .php-email-form textarea:focus {
   background-color: #02b2b2;
 }
 
@@ -1762,7 +1762,7 @@ section {
   background: #fff;
   padding: 6px 10px;
   position: relative;
-  border-radius: 4;
+  border-radius: 4px;
 }
 
 #footer .footer-top .footer-newsletter form input[type="email"] {
@@ -1783,7 +1783,7 @@ section {
   background: #02b2b2;
   color: #fff;
   transition: 0.3s;
-  border-radius: 4;
+  border-radius: 4px;
 }
 
 #footer .footer-top .footer-newsletter form input[type="submit"]:hover {
