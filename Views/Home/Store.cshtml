@@ -5,11 +5,226 @@
 
 <section id="home-store" class="home-store">
 
-    <div class="text-center">
-        <h1 class="display-4">Store</h1><br />
-        <h1 class="display-4">Store</h1><br />
-        <h1 class="display-4">Store</h1><br />
-        <h1 class="display-4">Store</h1><br />
-        <h1 class="display-4">Store</h1><br />
-    </div>
+    @{
+        ViewData["Title"] = "Store";
+    }
+
+    <section id="home-store" class="home-store">
+
+
+
+        <section id="portfolio" class="portfolio">
+            <div class="container">
+
+                <div class="section-title">
+                    <span>Gallery</span>
+                    <h2>Gallery</h2>
+                    <p>You can browse through our products here</p>
+                </div>
+
+
+                <div class="row aos-init" data-aos="fade-up">
+                    <div class="col-lg-12 d-flex justify-content-center">
+                        <ul id="portfolio-flters">
+                            <li data-filter="*" class="">All</li>
+                            <li data-filter=".filter-app" class="">Guitars</li>
+                            <li data-filter=".filter-card" class="">Effects</li>
+                            <li data-filter=".filter-web" class="">Amplifiers</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="row portfolio-container aos-init" height: 263.188px;">
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-app" style="position: absolute; left: 0px; top: 0px;">
+                        <img src="~/Content/img/Products/Guitars/Music Man - Mariposa Pueblo Pink.jpg" class="img-fluid" alt="">
+                        <div class="portfolio-info">
+                            <h5>Music Man Mariposa Pueblo Pink</h5>
+                            <p>300$</p>
+                            <a href="~/Content/img/Products/Guitars/Music Man - Mariposa Pueblo Pink.jpg" data-gall="portfolioGallery" class="venobox preview-link vbox-item" title="App 1"><i class="bx bx-plus"></i></a>
+                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-app" style="position: absolute; left: 380px; top: 0px;">
+                        <img src="~/Content/img/Products/Guitars/Music Man - Sabre Cobra Burst.jpg" class="img-fluid" alt="">
+                        <div class="portfolio-info">
+                            <h5>Music Man Sabre Cobra Burst</h5>
+                            <p>300$</p>
+                            <a href="~/Content/img/Products/Guitars/Music Man - Sabre Cobra Burst.jpg" class="venobox preview-link vbox-item" title="App 2"><i class="bx bx-plus"></i></a>
+                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-app" style="position: absolute; left: 760px; top: 0px;">
+                        <img src="~/Content/img/Products/Guitars/PRS USA - CE 24, Dark Cherry Sunburst.jpg" class="img-fluid" alt="">
+                        <div class="portfolio-info">
+                            <h5>PRS USA CE 24, Dark Cherry Sunburst</h5>
+                            <p>300$</p>
+                            <a href="~/Content/img/Products/Guitars/PRS USA - CE 24, Dark Cherry Sunburst.jpg" data-gall="portfolioGallery" class="venobox preview-link vbox-item" title="App 3"><i class="bx bx-plus"></i></a>
+                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-app" style="position: absolute; left: 0px; top: 0px;">
+                        <img src="~/Content/img/Products/Guitars/PRS USA - Silver Sky, Midnight Rose, Rosewood.jpg" class="img-fluid" alt="">
+                        <div class="portfolio-info">
+                            <h5>PRS USA Silver Sky, Midnight Rose, Rosewood</h5>
+                            <p>300$</p>
+                            <a href="~/Content/img/Products/Guitars/PRS USA - Silver Sky, Midnight Rose, Rosewood.jpg" data-gall="portfolioGallery" class="venobox preview-link vbox-item" title="App 1"><i class="bx bx-plus"></i></a>
+                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-app" style="position: absolute; left: 0px; top: 0px;">
+                        <img src="~/Content/img/Products/Guitars/Suhr - Classic S SSS, Sonic Blue.jpg" class="img-fluid" alt="">
+                        <div class="portfolio-info">
+                            <h5>Suhr Classic S SSS, Sonic Blue</h5>
+                            <p>300$</p>
+                            <a href="~/Content/img/Products/Guitars/Suhr - Classic S SSS, Sonic Blue.jpg" data-gall="portfolioGallery" class="venobox preview-link vbox-item" title="App 1"><i class="bx bx-plus"></i></a>
+                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-app" style="position: absolute; left: 0px; top: 0px;">
+                        <img src="~/Content/img/Products/Guitars/Suhr - Dealer Select Classic T, Aged Cherry.jpg" class="img-fluid" alt="">
+                        <div class="portfolio-info">
+                            <h5>Suhr Dealer Select Classic T, Aged Cherry</h5>
+                            <p>300$</p>
+                            <a href="~/Content/img/Products/Suhr - Dealer Select Classic T, Aged Cherry.jpg" data-gall="portfolioGallery" class="venobox preview-link vbox-item" title="App 1"><i class="bx bx-plus"></i></a>
+                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-web" style="position: absolute; left: 0px; top: 0px;">
+                        <img src="~/Content/img/Products/Amplifiers/MESA Boogie - California Tweed.jpg" class="img-fluid" alt="">
+                        <div class="portfolio-info">
+                            <h4>MESA Boogie California Tweed</h4>
+                            <p>150$</p>
+                            <a href="~/Content/img/Products/Amplifiers/MESA Boogie - California Tweed.jpg" data-gall="portfolioGallery" class="venobox preview-link vbox-item" title="Web 3"><i class="bx bx-plus"></i></a>
+                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-web" style="position: absolute; left: 0px; top: 0px;">
+                        <img src="~/Content/img/Products/Amplifiers/MESA Boogie - Fillmore 100.jpg" class="img-fluid" alt="">
+                        <div class="portfolio-info">
+                            <h4>MESA Boogie Fillmore 100</h4>
+                            <p>150$</p>
+                            <a href="~/Content/img/Products/Amplifiers/MESA Boogie - Fillmore 100.jpg" data-gall="portfolioGallery" class="venobox preview-link vbox-item" title="Web 3"><i class="bx bx-plus"></i></a>
+                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-web" style="position: absolute; left: 0px; top: 0px;">
+                        <img src="~/Content/img/Products/Amplifiers/PRS - Sonzera combo.jpg" class="img-fluid" alt="">
+                        <div class="portfolio-info">
+                            <h4>PRS Sonzera combo</h4>
+                            <p>150$</p>
+                            <a href="~/Content/img/Products/Amplifiers/PRS - Sonzera combo.jpg" data-gall="portfolioGallery" class="venobox preview-link vbox-item" title="Web 3"><i class="bx bx-plus"></i></a>
+                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-web" style="position: absolute; left: 0px; top: 0px;">
+                        <img src="~/Content/img/Products/Amplifiers/PRS - Tremonti MT15.jpg" class="img-fluid" alt="">
+                        <div class="portfolio-info">
+                            <h4>PRS Tremonti MT15</h4>
+                            <p>150$</p>
+                            <a href="~/Content/img/Products/Amplifiers/PRS - Tremonti MT15.jpg" data-gall="portfolioGallery" class="venobox preview-link vbox-item" title="Web 3"><i class="bx bx-plus"></i></a>
+                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-web" style="position: absolute; left: 0px; top: 0px;">
+                        <img src="~/Content/img/Products/Amplifiers/Suhr - Bella Combo.jpg" class="img-fluid" alt="">
+                        <div class="portfolio-info">
+                            <h4>Suhr Bella Combo</h4>
+                            <p>150$</p>
+                            <a href="~/Content/img/Products/Amplifiers/Suhr - Bella Combo.jpg" data-gall="portfolioGallery" class="venobox preview-link vbox-item" title="Web 3"><i class="bx bx-plus"></i></a>
+                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-web" style="position: absolute; left: 0px; top: 0px;">
+                        <img src="~/Content/img/Products/Amplifiers/Suhr - PT15 I.R. Head.jpg" class="img-fluid" alt="">
+                        <div class="portfolio-info">
+                            <h4>Suhr PT15 I.R. Head</h4>
+                            <p>150$</p>
+                            <a href="~/Content/img/Products/Amplifiers/Suhr - PT15 I.R. Head.jpg" data-gall="portfolioGallery" class="venobox preview-link vbox-item" title="Web 3"><i class="bx bx-plus"></i></a>
+                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-card" style="position: absolute; left: 0px; top: 0px;">
+                        <img src="~/Content/img/Products/Effects/Darkglass - Microtubes X7.jpg" class="img-fluid" alt="">
+                        <div class="portfolio-info">
+                            <h4>Darkglass Microtubes X7</h4>
+                            <p>100$</p>
+                            <a href="~/Content/img/Products/Effects/Darkglass - Microtubes X7.jpg" data-gall="portfolioGallery" class="venobox preview-link vbox-item" title="Card 2"><i class="bx bx-plus"></i></a>
+                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-card" style="position: absolute; left: 0px; top: 0px;">
+                        <img src="~/Content/img/Products/Effects/Darkglass - Vintage Ultra.jpg" class="img-fluid" alt="">
+                        <div class="portfolio-info">
+                            <h4>Darkglass Vintage Ultra</h4>
+                            <p>100$</p>
+                            <a href="~/Content/img/Products/Effects/Darkglass - Vintage Ultra.jpg" data-gall="portfolioGallery" class="venobox preview-link vbox-item" title="Card 2"><i class="bx bx-plus"></i></a>
+                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-card" style="position: absolute; left: 0px; top: 0px;">
+                        <img src="~/Content/img/Products/Effects/MESA Boogie - CabClone.jpg" class="img-fluid" alt="">
+                        <div class="portfolio-info">
+                            <h4>MESA Boogie CabClone</h4>
+                            <p>100$</p>
+                            <a href="~/Content/img/Products/Effects/MESA Boogie - CabClone.jpg" data-gall="portfolioGallery" class="venobox preview-link vbox-item" title="Card 2"><i class="bx bx-plus"></i></a>
+                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-card" style="position: absolute; left: 0px; top: 0px;">
+                        <img src="~/Content/img/Products/Effects/MESA Boogie - DynaPlex Overdrive.jpg" class="img-fluid" alt="">
+                        <div class="portfolio-info">
+                            <h4>MESA Boogie DynaPlex Overdrive</h4>
+                            <p>100$</p>
+                            <a href="~/Content/img/Products/Effects/MESA Boogie - DynaPlex Overdrive.jpg" data-gall="portfolioGallery" class="venobox preview-link vbox-item" title="Card 2"><i class="bx bx-plus"></i></a>
+                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-card" style="position: absolute; left: 0px; top: 0px;">
+                        <img src="~/Content/img/Products/Effects/Suhr - Alexa Chorus.jpg" class="img-fluid" alt="">
+                        <div class="portfolio-info">
+                            <h4>Suhr Alexa Chorus</h4>
+                            <p>100$</p>
+                            <a href="~/Content/img/Products/Effects/Suhr - Alexa Chorus.jpg" data-gall="portfolioGallery" class="venobox preview-link vbox-item" title="Card 2"><i class="bx bx-plus"></i></a>
+                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-card" style="position: absolute; left: 0px; top: 0px;">
+                        <img src="~/Content/img/Products/Effects/Suhr - Gold Eclipse Dual Distortion.jpg" class="img-fluid" alt="">
+                        <div class="portfolio-info">
+                            <h4>Suhr Gold Eclipse Dual Distortion</h4>
+                            <p>100$</p>
+                            <a href="~/Content/img/Products/Effects/Suhr - Gold Eclipse Dual Distortion.jpg" data-gall="portfolioGallery" class="venobox preview-link vbox-item" title="Card 2"><i class="bx bx-plus"></i></a>
+                            <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+        </section>
+
+    </section><!-- End About Section -->
+
 </section><!-- End About Section -->
