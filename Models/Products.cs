@@ -22,7 +22,8 @@ namespace Musebox_Web_Project.Models
         [Display(Name = "Type")]
         public string ProductType { get; set; }
         [Required]
-        
+
+        [Display(Name = "Brand Name")]
         public int BrandID { get; set; }
         public virtual Brand Brand { get; set; }
        
