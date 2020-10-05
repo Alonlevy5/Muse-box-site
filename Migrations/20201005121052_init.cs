@@ -44,6 +44,21 @@ namespace Musebox_Web_Project.Migrations
                 name: "IX_Products_BrandID",
                 table: "Products",
                 column: "BrandID");
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    ID = table.Column<string>(nullable: false).Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(nullable: false),
+                    LastName = table.Column<string>(nullable: false),
+                    Password = table.Column<string>(nullable: false),
+                    IsManager = table.Column<bool>(nullable: false, defaultValue: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.ID);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -53,6 +68,9 @@ namespace Musebox_Web_Project.Migrations
 
             migrationBuilder.DropTable(
                 name: "Brand");
+
+            migrationBuilder.DropTable(
+             name: "Users");
         }
     }
 }

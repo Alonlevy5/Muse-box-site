@@ -26,6 +26,8 @@ namespace Musebox_Web_Project
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddRazorPages()
+                .AddRazorRuntimeCompilation();
 
             services.AddDbContext<Musebox_Web_ProjectContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("Musebox_Web_ProjectContext")));
