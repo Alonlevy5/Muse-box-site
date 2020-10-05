@@ -1,4 +1,4 @@
-
+//Main layout js
 !(function($) {
   "use strict";
 
