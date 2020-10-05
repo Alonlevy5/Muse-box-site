@@ -50,12 +50,11 @@ namespace Musebox_Web_Project.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-
-
         }
 
         #region Login
 
+        // ToDo: Save to session
         [HttpPost]
         public ActionResult Login(string userName, string password)
         {
@@ -68,6 +67,10 @@ namespace Musebox_Web_Project.Controllers
             else
             {
                 // Login.
+                ViewBag.IsManager = userOrNull.IsManager;
+                ViewBag.FirstName = userOrNull.FirstName;
+                ViewBag.LastName = userOrNull.LastName;
+                ViewBag.DisplayName = userOrNull.DisplayName;
             }
 
             return RedirectToAction("Index");
