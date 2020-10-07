@@ -1,6 +1,6 @@
 //Main layout js
 !(function($) {
-  "use strict";
+    "use strict";
 
   // Preloader
   $(window).on('load', function() {
@@ -8,7 +8,7 @@
       $('#preloader').delay(100).fadeOut('slow', function() {
         $(this).remove();
       });
-    }
+      }
   });
 
   // Smooth scroll for the navigation menu and links with .scrollto classes
@@ -165,5 +165,4 @@
   $(window).on('load', function() {
     aos_init();
   });
-
 })(jQuery);

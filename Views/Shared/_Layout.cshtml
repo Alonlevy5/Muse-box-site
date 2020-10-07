@@ -57,10 +57,12 @@
 
             <nav class="nav-menu d-none d-lg-block">
                 <ul>
+
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Store", "Store", "Home")</li>
+                    <li>@Html.ActionLink("Cart", "Cart", "Home")</li>
                     <li>@Html.ActionLink("Login", "Login", "Home")</li>
                 </ul>
             </nav><!-- .nav-menu -->
@@ -68,7 +70,6 @@
         </div>
     </header><!-- End Header -->
     <!-- ======= Hero Section ======= -->
-
     <!-- Render body of other pages-->
     @RenderBody()
 

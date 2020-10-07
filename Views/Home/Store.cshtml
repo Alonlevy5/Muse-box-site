@@ -3,7 +3,10 @@
     Layout = "_Layout";
 }
 
+<script src="~/js/store.js"></script>
+
 <section id="portfolio" class="portfolio">
+
     <div class="container">
 
         <div class="section-title">
@@ -28,18 +31,18 @@
             <div class="col-lg-4 col-md-6 portfolio-item filter-app" style="position: absolute; left: 0px; top: 0px;">
                 <img src="~/img/Products/Guitars/Music Man - Mariposa Pueblo Pink.jpg" class="img-fluid" alt="">
                 <div class="portfolio-info">
-                    <h5>Music Man Mariposa Pueblo Pink</h5>
+                    <h5 id="shop-item-title">Music Man Mariposa Pueblo Pink</h5>
                     <p>300$</p>
-                    <a href="~/img/Products/Guitars/Music Man - Mariposa Pueblo Pink.jpg" data-gall="portfolioGallery" class="venobox preview-link vbox-item" title="App 1"><i class="bx bx-plus"></i></a>
+                    <i onclick="addItemToCart('1')" class="bx bx-plus shop-item-button"></i>
                     <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 portfolio-item filter-app" style="position: absolute; left: 380px; top: 0px;">
                 <img src="~/img/Products/Guitars/Music Man - Sabre Cobra Burst.jpg" class="img-fluid" alt="">
                 <div class="portfolio-info">
-                    <h5>Music Man Sabre Cobra Burst</h5>
+                    <h5 id="shop-item-title">Music Man Sabre Cobra Burst</h5>
                     <p>300$</p>
-                    <a href="~/img/Products/Guitars/Music Man - Sabre Cobra Burst.jpg" class="venobox preview-link vbox-item" title="App 2"><i class="bx bx-plus"></i></a>
+                    <i onclick="addItemToCart('2')" class="bx bx-plus shop-item-button"></i>
                     <a href="portfolio-details.html" class="details-link" title="More Details"><i class="bx bx-link"></i></a>
                 </div>
             </div>
@@ -212,4 +215,8 @@
         </div>
 
     </div>
+
+
+
 </section>
+
