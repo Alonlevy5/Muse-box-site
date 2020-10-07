@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Musebox_Web_Project.Data;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Musebox_Web_Project
 {
@@ -28,6 +29,8 @@ namespace Musebox_Web_Project
             services.AddControllersWithViews();
             services.AddRazorPages()
                 .AddRazorRuntimeCompilation();
+            services.AddSession(options => options.IdleTimeout = TimeSpan.FromHours(24));
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
             services.AddDbContext<Musebox_Web_ProjectContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("Musebox_Web_ProjectContext")));
@@ -50,6 +53,9 @@ namespace Musebox_Web_Project
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseSession();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

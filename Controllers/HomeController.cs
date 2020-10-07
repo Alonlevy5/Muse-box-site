@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Musebox_Web_Project.Data;
@@ -25,7 +26,12 @@ namespace Musebox_Web_Project.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            if (IsLoggedIn())
+            {
+                return View();
+            }
+
+            return View();// RedirectToAction("Login");
         }
 
         public IActionResult About()
@@ -45,10 +51,6 @@ namespace Musebox_Web_Project.Controllers
         {
             return View();
         }
-        public IActionResult Cart()
-        {
-            return View();
-        }
 
         public IActionResult Register()
         {
@@ -65,9 +67,9 @@ namespace Musebox_Web_Project.Controllers
 
         // ToDo: Save to session
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Login(string userName, string password)
         {
-
             User userOrNull = _context.Users.SingleOrDefault<User>(user => user.Id == userName && user.Password == password);
             if (userOrNull == null)
             {
@@ -80,6 +82,8 @@ namespace Musebox_Web_Project.Controllers
                 ViewBag.FirstName = userOrNull.FirstName;
                 ViewBag.LastName = userOrNull.LastName;
                 ViewBag.DisplayName = userOrNull.DisplayName;
+
+                SignInSession();
                 // ViewBag.Email = userOrNull.Email;
             }
 
@@ -89,8 +93,14 @@ namespace Musebox_Web_Project.Controllers
 
         // ToDo: Move to another place
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(string userName, string password, string firstName, string lastName, string email)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
             if (string.IsNullOrWhiteSpace(userName) ||
                 string.IsNullOrWhiteSpace(password) ||
                 string.IsNullOrWhiteSpace(firstName) ||
@@ -121,12 +131,24 @@ namespace Musebox_Web_Project.Controllers
 
             await _context.SaveChangesAsync();
 
+            SignInSession();
+
             // TODO: Render Index as a LogedIn User. (Different Function)
             return RedirectToAction("Index");
         }
 
 
         #endregion
+
+        private void SignInSession()
+        {
+            HttpContext.Session.SetString("Logged", "1");
+        }
+
+        private bool IsLoggedIn()
+        {
+            return HttpContext.Session.GetString("Logged") != null;
+        }
 
     }
 }
