@@ -1,4 +1,4 @@
-﻿    using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Musebox_Web_Project.Models
@@ -24,6 +24,11 @@ namespace Musebox_Web_Project.Models
         [DataType(DataType.Text)]
         [Display(Name = "Password")]
         public string Password { get; set; }
+
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
 
         [Required]
         [Display(Name = "IsManager")]

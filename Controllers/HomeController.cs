@@ -83,9 +83,13 @@ namespace Musebox_Web_Project.Controllers
 
         // ToDo: Move to another place
         [HttpPost]
-        public async Task<ActionResult> Register(string userName, string password, string firstName, string lastName)
+        public async Task<ActionResult> Register(string userName, string password, string firstName, string lastName, string email)
         {
-            if (string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(firstName) || string.IsNullOrWhiteSpace(lastName))
+            if (string.IsNullOrWhiteSpace(userName) ||
+                string.IsNullOrWhiteSpace(password) ||
+                string.IsNullOrWhiteSpace(firstName) ||
+                string.IsNullOrWhiteSpace(lastName) ||
+                string.IsNullOrWhiteSpace(email))
             {
                 throw new ArgumentNullException("Username,password and name cannot be empty");
             }
@@ -103,7 +107,8 @@ namespace Musebox_Web_Project.Controllers
                 IsManager = false,
                 Id = userName,
                 Password = password,
-                FirstName = firstName
+                FirstName = firstName,
+                Email = email
             };
 
             _context.Users.Add(newUser);

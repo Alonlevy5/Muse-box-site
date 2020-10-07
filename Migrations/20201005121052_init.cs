@@ -53,6 +53,7 @@ namespace Musebox_Web_Project.Migrations
                     FirstName = table.Column<string>(nullable: false),
                     LastName = table.Column<string>(nullable: false),
                     Password = table.Column<string>(nullable: false),
+                    Email = table.Column<string>(nullable: false),
                     IsManager = table.Column<bool>(nullable: false, defaultValue: false)
                 },
                 constraints: table =>
