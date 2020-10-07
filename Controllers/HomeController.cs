@@ -76,6 +76,37 @@ namespace Musebox_Web_Project.Controllers
             return RedirectToAction("Index");
         }
 
+        // ToDo: Move to another place
+        [HttpPost]
+        public async Task<ActionResult> Register(string userName, string password, string firstName, string lastName)
+        {
+            if (string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(firstName) || string.IsNullOrWhiteSpace(lastName))
+            {
+                throw new ArgumentNullException("Username,password and name cannot be empty");
+            }
+
+            // Check if user Already exists.
+
+            User userOrNull = _context.Users.SingleOrDefault<User>(user => user.Id == userName);
+            if (userOrNull != null)
+            {
+                throw new Exception("Username already exists. Pick another username");
+            }
+
+            User newUser = new User()
+            {
+                IsManager = false,
+                Id = userName,
+                Password = password,
+                FirstName = firstName
+            };
+
+            _context.Users.Add(newUser);
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
 
 
         #endregion
