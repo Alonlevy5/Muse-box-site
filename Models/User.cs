@@ -26,6 +26,11 @@ namespace Musebox_Web_Project.Models
         public string Password { get; set; }
 
         [Required]
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [Required]
         [Display(Name = "IsManager")]
         public bool IsManager { get; set; }
 
