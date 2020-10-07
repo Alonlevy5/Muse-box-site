@@ -80,8 +80,10 @@ namespace Musebox_Web_Project.Controllers
                 ViewBag.FirstName = userOrNull.FirstName;
                 ViewBag.LastName = userOrNull.LastName;
                 ViewBag.DisplayName = userOrNull.DisplayName;
+                // ViewBag.Email = userOrNull.Email;
             }
 
+            // TODO: Render Index as a LogedIn User.
             return RedirectToAction("Index");
         }
 
@@ -119,6 +121,7 @@ namespace Musebox_Web_Project.Controllers
 
             await _context.SaveChangesAsync();
 
+            // TODO: Render Index as a LogedIn User. (Different Function)
             return RedirectToAction("Index");
         }
 
