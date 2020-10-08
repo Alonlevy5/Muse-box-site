@@ -47,6 +47,10 @@ namespace Musebox_Web_Project.Controllers
         {
             return View();
         }
+        public IActionResult Gallery()
+        {
+            return View();
+        }
         public IActionResult Login()
         {
             return View();
