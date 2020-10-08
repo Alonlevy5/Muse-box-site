@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -26,43 +30,57 @@ namespace Musebox_Web_Project.Controllers
 
         public IActionResult Index()
         {
-            if (IsLoggedIn())
-            {
-                return View();
-            }
+            SetUserToViewBag();
 
-            return View();// RedirectToAction("Login");
+            return View();
         }
 
         public IActionResult About()
         {
+            SetUserToViewBag();
+
             return View();
         }
 
         public IActionResult Contact()
         {
+            SetUserToViewBag();
+
             return View();
         }
+
         public IActionResult Store()
         {
+            SetUserToViewBag();
+
             return View();
         }
+
         public IActionResult Gallery()
         {
+            SetUserToViewBag();
+
             return View();
         }
+
         public IActionResult Login()
         {
+            SetUserToViewBag();
+
             return View();
         }
 
         public IActionResult Register()
         {
+            SetUserToViewBag();
+
             return View();
         }
 
         public IActionResult Cart()
         {
+            SetUserToViewBag();
+
             return View();
         }
 
@@ -77,27 +95,44 @@ namespace Musebox_Web_Project.Controllers
         // ToDo: Save to session
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(string userName, string password)
+        public async Task<ActionResult> Login(string userName, string password)
         {
             User userOrNull = _context.Users.SingleOrDefault<User>(user => user.UserName == userName && user.Password == password);
+            //User userOrNull = new User()
+            //{
+            //    UserName = " UserNameTest",
+            //    FirstName = "FTest",
+            //    LastName = "LTest",
+            //    Password = "123",
+            //    IsManager = true
+            //};
+
             if (userOrNull == null)
             {
                 // Incorrect!
+                ViewBag.IncorrectCredentials = "true";
+                return View();
             }
             else
             {
                 // Login.
-                ViewData["IsManager"] = userOrNull.IsManager;
-                ViewData["FirstName"] = userOrNull.FirstName;
-                ViewData["LastName"] = userOrNull.LastName;
-                ViewData["DisplayName"] = userOrNull.DisplayName;
-
-                SignInSession();
+                await SignInSession(userOrNull);
                 // ViewData["Email"] = userOrNull.Email;
             }
 
             // TODO: Render Index as a LogedIn User.
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<ActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            ViewBag.Logedin = false;
+            ViewBag.Admin = false;
+
+            return View();
         }
 
         // ToDo: Move to another place
@@ -140,7 +175,7 @@ namespace Musebox_Web_Project.Controllers
 
             await _context.SaveChangesAsync();
 
-            SignInSession();
+            await SignInSession(newUser);
 
             // TODO: Render Index as a LogedIn User. (Different Function)
             return RedirectToAction("Index");
@@ -149,15 +184,39 @@ namespace Musebox_Web_Project.Controllers
 
         #endregion
 
-        private void SignInSession()
+        private async Task SignInSession(User user)
         {
-            HttpContext.Session.SetString("Logged", "1");
+            //HttpContext.Session.SetString("Logged", "1");
+
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name,user.UserName),
+                new Claim("FullName",user.DisplayName),
+                new Claim("FirstName",user.FirstName),
+                new Claim("LastName",user.LastName),
+                new Claim("IsManager",user.IsManager.ToString()),
+            };
+
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var authProperties = new AuthenticationProperties
+            {
+                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(60)
+            };
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity),
+                authProperties);
         }
 
-        private bool IsLoggedIn()
+        private void SetUserToViewBag()
         {
-            return HttpContext.Session.GetString("Logged") != null;
+            Claim isAdmin = User.Claims.SingleOrDefault(c => c.Type == "IsManager");
+            if (isAdmin != null)
+            {
+                ViewBag.Logedin = true;
+                ViewBag.Admin = isAdmin.Value;
+            }
         }
-
     }
 }

@@ -32,6 +32,10 @@
         </div>
     </div>
 </div>
+@if (ViewBag.IncorrectCredentials == "true")
+{
+    <script>alert('Username or password is wrong');</script>
+}
 
 <!-- Bootstrap core JavaScript-->
 <script src="~/user/vendor/jquery/jquery.min.js"></script>

@@ -31,6 +31,7 @@ namespace Musebox_Web_Project
                 .AddRazorRuntimeCompilation();
             services.AddSession(options => options.IdleTimeout = TimeSpan.FromHours(24));
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+            services.AddAuthorization();
 
             services.AddDbContext<Musebox_Web_ProjectContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("Musebox_Web_ProjectContext")));

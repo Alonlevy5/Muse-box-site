@@ -57,14 +57,21 @@
 
             <nav class="nav-menu d-none d-lg-block">
                 <ul>
-                    
+
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Gallery", "Gallery", "Home")</li>
                     <li> <a href="/Products"> Store</a> </li>
                     <li>@Html.ActionLink("Cart", "Cart", "Home")</li>
-                    <li>@Html.ActionLink("Login", "Login", "Home")</li>
+                    @if (ViewBag.Logedin == null || ViewBag.Logedin == false)
+                    {
+                        <li>@Html.ActionLink("Login", "Login", "Home")</li>
+                    }
+                    @if (ViewBag.Logedin != null && ViewBag.Logedin == true)
+                    {
+                        <li><a asp-action="Logout">Logout</a></li>
+                    }
                 </ul>
             </nav><!-- .nav-menu -->
 
