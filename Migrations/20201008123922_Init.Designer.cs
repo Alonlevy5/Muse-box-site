@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Musebox_Web_Project.Data;
 
 namespace Musebox_Web_Project.Migrations
 {
     [DbContext(typeof(Musebox_Web_ProjectContext))]
-    partial class Musebox_Web_ProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20201008123922_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

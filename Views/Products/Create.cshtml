@@ -1,4 +1,4 @@
-﻿@model Musebox_Web_Project.Models.Products
+﻿@model Musebox_Web_Project.Models.Product
 
 @{
     ViewData["Title"] = "Create";
@@ -24,8 +24,8 @@
                         <span asp-validation-for="ProductType" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="BrandID" class="control-label"></label>
-                        <select asp-for="BrandID" class="form-control" asp-items="ViewBag.BrandID"></select>
+                        <label asp-for="BrandId" class="control-label"></label>
+                        <select asp-for="BrandId" class="form-control" asp-items="ViewBag.BrandId"></select>
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Create" class="btn btn-primary" />

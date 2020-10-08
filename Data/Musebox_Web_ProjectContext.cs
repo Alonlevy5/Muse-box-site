@@ -14,11 +14,13 @@ namespace Musebox_Web_Project.Data
         {
         }
 
-        public DbSet<Musebox_Web_Project.Models.Products> Products { get; set; }
+        public DbSet<Musebox_Web_Project.Models.Product> Products { get; set; }
 
         public DbSet<Musebox_Web_Project.Models.Brand> Brand { get; set; }
 
         public DbSet<Musebox_Web_Project.Models.User> Users { get; set; }
+
+        public DbSet<Musebox_Web_Project.Models.Order> Order { get; set; }
 
     }
 }

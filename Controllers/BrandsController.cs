@@ -34,7 +34,7 @@ namespace Musebox_Web_Project.Controllers
             }
 
             var brand = await _context.Brand
-                .FirstOrDefaultAsync(m => m.BrandID == id);
+                .FirstOrDefaultAsync(m => m.BrandId == id);
             if (brand == null)
             {
                 return NotFound();
@@ -88,7 +88,7 @@ namespace Musebox_Web_Project.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("BrandID,BrandName")] Brand brand)
         {
-            if (id != brand.BrandID)
+            if (id != brand.BrandId)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace Musebox_Web_Project.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BrandExists(brand.BrandID))
+                    if (!BrandExists(brand.BrandId))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace Musebox_Web_Project.Controllers
             }
 
             var brand = await _context.Brand
-                .FirstOrDefaultAsync(m => m.BrandID == id);
+                .FirstOrDefaultAsync(m => m.BrandId == id);
             if (brand == null)
             {
                 return NotFound();
@@ -147,7 +147,7 @@ namespace Musebox_Web_Project.Controllers
 
         private bool BrandExists(int id)
         {
-            return _context.Brand.Any(e => e.BrandID == id);
+            return _context.Brand.Any(e => e.BrandId == id);
         }
     }
 }

@@ -1,21 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Musebox_Web_Project.Models
 {
     public class User
     {
+        [Key]
+        [Required]
+        [Display(Name = "User ID")]
+        public int UserId { get; set; }
+
         [Required]
         [DataType(DataType.Text)]
-        [Display(Name = "User ID")]
-        public string Id { get; set; }
+        [Display(Name = "Username")]
+        public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Text)]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
-        [Required]
 
+        [Required]
         [DataType(DataType.Text)]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
@@ -33,6 +39,8 @@ namespace Musebox_Web_Project.Models
         [Required]
         [Display(Name = "IsManager")]
         public bool IsManager { get; set; }
+
+        public virtual ICollection<Order> Orders { get; set; }
 
         public string DisplayName
         {

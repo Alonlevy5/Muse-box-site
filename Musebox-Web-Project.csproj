@@ -6,6 +6,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20201005121052_init.cs" />
+    <Compile Remove="Migrations\20201005121052_init.Designer.cs" />
+    <Compile Remove="Migrations\20201005121351_Brand.cs" />
+    <Compile Remove="Migrations\20201005121351_Brand.Designer.cs" />
+    <Compile Remove="Migrations\20201008114127_User_Update.cs" />
+    <Compile Remove="Migrations\20201008114127_User_Update.Designer.cs" />
+    <Compile Remove="Migrations\20201008114726_Init.cs" />
+    <Compile Remove="Migrations\20201008114726_Init.Designer.cs" />
+    <Compile Remove="Migrations\20201008121324_Init.cs" />
+    <Compile Remove="Migrations\20201008121324_Init.Designer.cs" />
+    <Compile Remove="Migrations\20201008122024_Init.cs" />
+    <Compile Remove="Migrations\20201008122024_Init.Designer.cs" />
+    <Compile Remove="Migrations\20201008131406_Init2.cs" />
+    <Compile Remove="Migrations\20201008131406_Init2.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\js\site.js" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />

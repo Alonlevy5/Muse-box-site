@@ -61,6 +61,11 @@ namespace Musebox_Web_Project.Controllers
             return View();
         }
 
+        public IActionResult Cart()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -74,7 +79,7 @@ namespace Musebox_Web_Project.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(string userName, string password)
         {
-            User userOrNull = _context.Users.SingleOrDefault<User>(user => user.Id == userName && user.Password == password);
+            User userOrNull = _context.Users.SingleOrDefault<User>(user => user.UserName == userName && user.Password == password);
             if (userOrNull == null)
             {
                 // Incorrect!
@@ -116,7 +121,7 @@ namespace Musebox_Web_Project.Controllers
 
             // Check if user Already exists.
 
-            User userOrNull = _context.Users.SingleOrDefault<User>(user => user.Id == userName);
+            User userOrNull = _context.Users.SingleOrDefault<User>(user => user.UserName == userName);
             if (userOrNull != null)
             {
                 throw new Exception("Username already exists. Pick another username");
@@ -125,7 +130,7 @@ namespace Musebox_Web_Project.Controllers
             User newUser = new User()
             {
                 IsManager = false,
-                Id = userName,
+                UserName = userName,
                 Password = password,
                 FirstName = firstName,
                 Email = email

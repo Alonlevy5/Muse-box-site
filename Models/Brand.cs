@@ -14,14 +14,14 @@ namespace Musebox_Web_Project.Models
         [DataType(DataType.Text)]
         [Key]
         [Display(Name = "Brand Name")]
-        public int BrandID { get; set; }
+        public int BrandId { get; set; }
 
         [Required]
         [DataType(DataType.Text)]
         [Display(Name = "Brand Name")]
         public string BrandName { get; set; }
 
-        public virtual ICollection<Products> Products { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
 
     }
 }

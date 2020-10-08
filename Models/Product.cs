@@ -6,28 +6,28 @@ using System.Threading.Tasks;
 
 namespace Musebox_Web_Project.Models
 {
-    public class Products
+    public class Product
     {
-
-        [Required]
-        [DataType(DataType.Text)]
         [Key]
-        public int ProductID { get; set; }
+        [Required]
+        public int ProductId { get; set; }
+
         [Required]
         [DataType(DataType.Text)]
         [Display(Name = "Product Name")]
         public string ProductName { get; set; }
+
         [Required]
         [DataType(DataType.Text)]
         [Display(Name = "Type")]
         public string ProductType { get; set; }
-        [Required]
 
+        [Required]
         [Display(Name = "Brand Name")]
-        public int BrandID { get; set; }
+        public int BrandId { get; set; }
+
         public virtual Brand Brand { get; set; }
        
-        
         //public virtual ICollection<Sales> Sales { get; set; }
 
 

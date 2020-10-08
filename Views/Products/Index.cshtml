@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Musebox_Web_Project.Models.Products>
+﻿@model IEnumerable<Musebox_Web_Project.Models.Product>
 
 @{
     ViewData["Title"] = "Index";
@@ -10,7 +10,6 @@
         <p>
             <a asp-action="Create">Create New Product</a>
            <p> <a href="/Brands/Create">Create New Brand</a>
-        </p>
         </p>
         <table class="table">
             <thead>
@@ -41,10 +40,10 @@
                             @Html.DisplayFor(modelItem => item.Brand.BrandName)
                         </td>
                         <td>
-                            <a asp-action="" asp-route-id="@item.ProductID">Add To Cart</a> |
-                            <a asp-action="Edit" asp-route-id="@item.ProductID">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.ProductID">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.ProductID">Delete</a>
+                            <a asp-action="" asp-route-id="@item.ProductId">Add To Cart</a> |
+                            <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
                         </td>
                     </tr>
                 }
