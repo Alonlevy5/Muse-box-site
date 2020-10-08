@@ -78,13 +78,13 @@ namespace Musebox_Web_Project.Controllers
             else
             {
                 // Login.
-                ViewBag.IsManager = userOrNull.IsManager;
-                ViewBag.FirstName = userOrNull.FirstName;
-                ViewBag.LastName = userOrNull.LastName;
-                ViewBag.DisplayName = userOrNull.DisplayName;
+                ViewData["IsManager"] = userOrNull.IsManager;
+                ViewData["FirstName"] = userOrNull.FirstName;
+                ViewData["LastName"] = userOrNull.LastName;
+                ViewData["DisplayName"] = userOrNull.DisplayName;
 
                 SignInSession();
-                // ViewBag.Email = userOrNull.Email;
+                // ViewData["Email"] = userOrNull.Email;
             }
 
             // TODO: Render Index as a LogedIn User.
