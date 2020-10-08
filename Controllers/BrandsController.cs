@@ -54,7 +54,7 @@ namespace Musebox_Web_Project.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BrandID,BrandName")] Brand brand)
+        public async Task<IActionResult> Create([Bind("BrandId,BrandName")] Brand brand)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace Musebox_Web_Project.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BrandID,BrandName")] Brand brand)
+        public async Task<IActionResult> Edit(int id, [Bind("BrandId,BrandName")] Brand brand)
         {
             if (id != brand.BrandId)
             {

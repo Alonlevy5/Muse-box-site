@@ -3,13 +3,14 @@
 @{
     ViewData["Title"] = "Index";
 }
+
 <section id="products" class="products">
     <div class="container">
+
         <h1>Index</h1>
 
         <p>
-            <a asp-action="Create">Create New Product</a>
-           <p> <a href="/Brands/Create">Create New Brand</a>
+            <a asp-action="Create">Create New</a>
         </p>
         <table class="table">
             <thead>
@@ -40,7 +41,6 @@
                             @Html.DisplayFor(modelItem => item.Brand.BrandName)
                         </td>
                         <td>
-                            <a asp-action="" asp-route-id="@item.ProductId">Add To Cart</a> |
                             <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
                             <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
                             <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
@@ -49,5 +49,5 @@
                 }
             </tbody>
         </table>
-        </div>
-    </section>
+    </div>
+</section><!-- End About Section -->

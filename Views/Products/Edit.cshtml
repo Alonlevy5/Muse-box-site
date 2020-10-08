@@ -3,11 +3,12 @@
 @{
     ViewData["Title"] = "Edit";
 }
+
 <section id="products" class="products">
     <div class="container">
         <h1>Edit</h1>
 
-        <h4>Products</h4>
+        <h4>Product</h4>
         <hr />
         <div class="row">
             <div class="col-md-4">
@@ -39,8 +40,9 @@
         <div>
             <a asp-action="Index">Back to List</a>
         </div>
+
     </div>
-</section>
+</section><!-- End About Section -->
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

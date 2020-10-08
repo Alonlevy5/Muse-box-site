@@ -10,7 +10,7 @@ using Musebox_Web_Project.Data;
 namespace Musebox_Web_Project.Migrations
 {
     [DbContext(typeof(Musebox_Web_ProjectContext))]
-    [Migration("20201008123922_Init")]
+    [Migration("20201008165037_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

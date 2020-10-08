@@ -34,21 +34,21 @@ namespace Musebox_Web_Project.Controllers
                 return NotFound();
             }
 
-            var products = await _context.Products
+            var product = await _context.Products
                 .Include(p => p.Brand)
                 .FirstOrDefaultAsync(m => m.ProductId == id);
-            if (products == null)
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return View(products);
+            return View(product);
         }
 
         // GET: Products/Create
         public IActionResult Create()
         {
-            ViewData["BrandID"] = new SelectList(_context.Set<Brand>(), "BrandID", "BrandName");
+            ViewData["BrandId"] = new SelectList(_context.Brand, "BrandId", "BrandName");
             return View();
         }
 
@@ -57,16 +57,16 @@ namespace Musebox_Web_Project.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductID,ProductName,ProductType,BrandID")] Product products)
+        public async Task<IActionResult> Create([Bind("ProductId,ProductName,ProductType,BrandId")] Product product)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(products);
+                _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BrandID"] = new SelectList(_context.Set<Brand>(), "BrandID", "BrandName", products.BrandId);
-            return View(products);
+            ViewData["BrandId"] = new SelectList(_context.Brand, "BrandId", "BrandName", product.BrandId);
+            return View(product);
         }
 
         // GET: Products/Edit/5
@@ -77,13 +77,13 @@ namespace Musebox_Web_Project.Controllers
                 return NotFound();
             }
 
-            var products = await _context.Products.FindAsync(id);
-            if (products == null)
+            var product = await _context.Products.FindAsync(id);
+            if (product == null)
             {
                 return NotFound();
             }
-            ViewData["BrandID"] = new SelectList(_context.Set<Brand>(), "BrandID", "BrandName", products.BrandId);
-            return View(products);
+            ViewData["BrandId"] = new SelectList(_context.Brand, "BrandId", "BrandName", product.BrandId);
+            return View(product);
         }
 
         // POST: Products/Edit/5
@@ -91,9 +91,9 @@ namespace Musebox_Web_Project.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductID,ProductName,ProductType,BrandID")] Product products)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,ProductType,BrandId")] Product product)
         {
-            if (id != products.ProductId)
+            if (id != product.ProductId)
             {
                 return NotFound();
             }
@@ -102,12 +102,12 @@ namespace Musebox_Web_Project.Controllers
             {
                 try
                 {
-                    _context.Update(products);
+                    _context.Update(product);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductsExists(products.ProductId))
+                    if (!ProductExists(product.ProductId))
                     {
                         return NotFound();
                     }
@@ -118,8 +118,8 @@ namespace Musebox_Web_Project.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["BrandID"] = new SelectList(_context.Set<Brand>(), "BrandID", "BrandName", products.BrandId);
-            return View(products);
+            ViewData["BrandId"] = new SelectList(_context.Brand, "BrandId", "BrandName", product.BrandId);
+            return View(product);
         }
 
         // GET: Products/Delete/5
@@ -130,15 +130,15 @@ namespace Musebox_Web_Project.Controllers
                 return NotFound();
             }
 
-            var products = await _context.Products
+            var product = await _context.Products
                 .Include(p => p.Brand)
                 .FirstOrDefaultAsync(m => m.ProductId == id);
-            if (products == null)
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return View(products);
+            return View(product);
         }
 
         // POST: Products/Delete/5
@@ -146,13 +146,13 @@ namespace Musebox_Web_Project.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var products = await _context.Products.FindAsync(id);
-            _context.Products.Remove(products);
+            var product = await _context.Products.FindAsync(id);
+            _context.Products.Remove(product);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductsExists(int id)
+        private bool ProductExists(int id)
         {
             return _context.Products.Any(e => e.ProductId == id);
         }
