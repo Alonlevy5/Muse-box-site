@@ -92,7 +92,6 @@ namespace Musebox_Web_Project.Controllers
 
         #region Login
 
-        // ToDo: Save to session
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(string userName, string password)
@@ -110,7 +109,7 @@ namespace Musebox_Web_Project.Controllers
             if (userOrNull == null)
             {
                 // Incorrect!
-                ViewBag.IncorrectCredentials = "true";
+                ViewBag.IncorrectCredentials = true;
                 return View();
             }
             else
@@ -120,8 +119,7 @@ namespace Musebox_Web_Project.Controllers
                 // ViewData["Email"] = userOrNull.Email;
             }
 
-            // TODO: Render Index as a LogedIn User.
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -142,6 +140,8 @@ namespace Musebox_Web_Project.Controllers
         {
             if (!ModelState.IsValid)
             {
+
+                ViewBag.RegisterError = "Error. Model is Invalid";
                 return View();
             }
 
@@ -177,8 +177,7 @@ namespace Musebox_Web_Project.Controllers
 
             await SignInSession(newUser);
 
-            // TODO: Render Index as a LogedIn User. (Different Function)
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
 
