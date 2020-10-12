@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -22,8 +23,42 @@ namespace Musebox_Web_Project.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            var musebox_Web_ProjectContext = _context.Products.Include(p => p.Brand);
-            return View(await musebox_Web_ProjectContext.ToListAsync());
+            var my_MuseboxContext = _context.Products.Include(p => p.Brand);
+            return View(await my_MuseboxContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> FilterSearch(string name, int price, string type, string brand)
+        {
+            var my_MuseboxContext = _context.Products.Include(p => p.Brand);
+            var result = from p in my_MuseboxContext
+                         select p;
+
+            if (name != null)
+            {
+                result = from p in result
+                         where p.ProductName.Contains(name)
+                         select p;
+            }
+            if (price > 0)
+            {
+                result = from p in result
+                         where p.ProductPrice <= price
+                         select p;
+            }
+            if (type != null)
+            {
+                result = from p in result
+                         where p.ProductType.Contains(type)
+                         select p;
+            }
+            if (brand != null)
+            {
+                result = from p in result
+                         where p.Brand.BrandName.Contains(brand)
+                         select p;
+            }
+
+            return View("Index", await result.ToListAsync());
         }
 
         // GET: Products/Details/5
@@ -57,10 +92,17 @@ namespace Musebox_Web_Project.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId,ProductName,ProductType,BrandId")] Product product)
+        public async Task<IActionResult> Create([Bind("ProductId,ProductName,ProductPrice,ProductType,BrandId,ImageFile")] Product product)
         {
+            product.Brand = _context.Brand.SingleOrDefault(b => b.BrandId == product.BrandId);
             if (ModelState.IsValid)
             {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    product.ImageFile.CopyTo(ms);
+                    product.Image = ms.ToArray();
+                }
+
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -91,7 +133,7 @@ namespace Musebox_Web_Project.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,ProductType,BrandId")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,ProductPrice,ProductType,BrandId")] Product product)
         {
             if (id != product.ProductId)
             {
