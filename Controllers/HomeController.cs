@@ -193,6 +193,7 @@ namespace Musebox_Web_Project.Controllers
                 new Claim("FullName",user.DisplayName),
                 new Claim("FirstName",user.FirstName),
                 new Claim("LastName",user.LastName),
+                new Claim(ClaimTypes.Role,user.IsManager ? "Admin" : "User"),
                 new Claim("IsManager",user.IsManager.ToString()),
             };
 
