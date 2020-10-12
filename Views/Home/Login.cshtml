@@ -1,7 +1,5 @@
-﻿@{
-    ViewData["Title"] = "Login";
-    Layout = "_UserLayout";
-}
+﻿@{ ViewData["Title"] = "Login";
+                Layout = "_UserLayout"; }
 
 <div class="card-body p-0">
     <!-- Nested Row within Card Body -->
@@ -14,7 +12,7 @@
                 </div>
                 <form class="user" asp-action="Login">
                     <div class="form-group">
-                        <input type="email" class="form-control form-control-user" id="userName" name="userName" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                        <input type="email" class="form-control form-control-user" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter Email Address...">
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password">
@@ -32,10 +30,9 @@
         </div>
     </div>
 </div>
-@if (ViewBag.IncorrectCredentials == "true")
+@if (ViewBag.IncorrectCredentials == true)
 {
-    <script>alert('Username or password is wrong');</script>
-}
+<script>alert('Username or password is wrong');</script>}
 
 <!-- Bootstrap core JavaScript-->
 <script src="~/user/vendor/jquery/jquery.min.js"></script>

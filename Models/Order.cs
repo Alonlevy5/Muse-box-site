@@ -18,12 +18,10 @@ namespace Musebox_Web_Project.Models
         public DateTime OrderDate { get; set; }
 
         [Required]
-        [Display(Name = "Order Date")]
+        [Display(Name = "Username")]
         public int UserId { get; set; }
 
-        [Required]
-        [Display(Name = "User Name")]
-        public virtual string UserName { get; set; }
+        public virtual User User { get; set; }
 
         public virtual ICollection<Product> Products { get; set; }
 

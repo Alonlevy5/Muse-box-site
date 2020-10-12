@@ -21,7 +21,5 @@ namespace Musebox_Web_Project.Models
         [Display(Name = "Brand Name")]
         public string BrandName { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; }
-
     }
 }

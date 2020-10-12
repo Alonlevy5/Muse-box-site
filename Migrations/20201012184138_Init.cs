@@ -8,6 +8,22 @@ namespace Musebox_Web_Project.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Branch",
+                columns: table => new
+                {
+                    BranchId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    BranchName = table.Column<string>(nullable: false),
+                    Address = table.Column<string>(nullable: false),
+                    Latitude = table.Column<double>(nullable: false),
+                    Longitude = table.Column<double>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Branch", x => x.BranchId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Brand",
                 columns: table => new
                 {
@@ -45,8 +61,7 @@ namespace Musebox_Web_Project.Migrations
                     OrderId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     OrderDate = table.Column<DateTime>(nullable: false),
-                    UserId = table.Column<int>(nullable: false),
-                    UserName = table.Column<string>(nullable: false)
+                    UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -66,7 +81,9 @@ namespace Musebox_Web_Project.Migrations
                     ProductId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductName = table.Column<string>(nullable: false),
+                    ProductPrice = table.Column<int>(nullable: false),
                     ProductType = table.Column<string>(nullable: false),
+                    Image = table.Column<byte[]>(nullable: true),
                     BrandId = table.Column<int>(nullable: false),
                     OrderId = table.Column<int>(nullable: true)
                 },
@@ -105,6 +122,9 @@ namespace Musebox_Web_Project.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Branch");
+
             migrationBuilder.DropTable(
                 name: "Products");
 

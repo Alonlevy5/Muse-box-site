@@ -1,10 +1,10 @@
-﻿@model IEnumerable<Musebox_Web_Project.Models.Product>
+﻿@model IEnumerable<Musebox_Web_Project.Models.Branch>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<section id="products" class="products">
+<section id="branches" class="branches">
     <div class="container">
         <h1>Index</h1>
 
@@ -15,9 +15,9 @@
         <div class="search-container">
             <form asp-action="FilterSearch">
                 <input name="name" placeholder="filter by name...">
-                <input name="price" placeholder="filter by max price...">
-                <input name="type" placeholder="filter by type...">
-                <input name="brand" placeholder="filter by brand...">
+                <input name="address" placeholder="filter by address...">
+                <input name="lat" placeholder="filter by latitude...">
+                <input name="lng" placeholder="filter by longitude...">
                 <button type="submit"><i class="fa fa-search"></i></button>
             </form>
         </div>
@@ -26,16 +26,16 @@
             <thead>
                 <tr class="table100-head">
                     <th>
-                        @Html.DisplayNameFor(model => model.ProductName)
+                        @Html.DisplayNameFor(model => model.BranchName)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.ProductPrice)
+                        @Html.DisplayNameFor(model => model.Address)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.ProductType)
+                        @Html.DisplayNameFor(model => model.Latitude)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Brand)
+                        @Html.DisplayNameFor(model => model.Longitude)
                     </th>
                     <th></th>
                 </tr>
@@ -45,21 +45,21 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ProductName)
+                            @Html.DisplayFor(modelItem => item.BranchName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ProductPrice)
+                            @Html.DisplayFor(modelItem => item.Address)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.ProductType)
+                            @Html.DisplayFor(modelItem => item.Latitude)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Brand.BrandName)
+                            @Html.DisplayFor(modelItem => item.Longitude)
                         </td>
                         <td class="td-actions">
-                            <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                            <a asp-action="Edit" asp-route-id="@item.BranchId">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.BranchId">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.BranchId">Delete</a>
                         </td>
                     </tr>
                 }

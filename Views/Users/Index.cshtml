@@ -11,9 +11,21 @@
         <p>
             <a asp-action="Create">Create New</a>
         </p>
+
+        <div class="search-container">
+            <form asp-action="FilterSearch">
+                <input name="userName" placeholder="filter by username...">
+                <input name="firstName" placeholder="filter by first name...">
+                <input name="lastName" placeholder="filter by last name...">
+                <input name="email" placeholder="filter by email...">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+
+
         <table class="table">
             <thead>
-                <tr>
+                <tr class="table100-head">
                     <th>
                         @Html.DisplayNameFor(model => model.UserName)
                     </th>
@@ -57,7 +69,7 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.IsManager)
                         </td>
-                        <td>
+                        <td class="td-actions">
                             <a asp-action="Edit" asp-route-id="@item.UserId">Edit</a> |
                             <a asp-action="Details" asp-route-id="@item.UserId">Details</a> |
                             <a asp-action="Delete" asp-route-id="@item.UserId">Delete</a>
@@ -69,3 +81,8 @@
 
     </div>
 </section>
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+}
+

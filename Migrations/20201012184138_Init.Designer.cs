@@ -10,7 +10,7 @@ using Musebox_Web_Project.Data;
 namespace Musebox_Web_Project.Migrations
 {
     [DbContext(typeof(Musebox_Web_ProjectContext))]
-    [Migration("20201008165037_Init")]
+    [Migration("20201012184138_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,32 @@ namespace Musebox_Web_Project.Migrations
                 .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Musebox_Web_Project.Models.Branch", b =>
+                {
+                    b.Property<int>("BranchId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BranchName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Latitude")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("float");
+
+                    b.HasKey("BranchId");
+
+                    b.ToTable("Branch");
+                });
 
             modelBuilder.Entity("Musebox_Web_Project.Models.Brand", b =>
                 {
@@ -50,10 +76,6 @@ namespace Musebox_Web_Project.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("OrderId");
 
                     b.HasIndex("UserId");
@@ -71,12 +93,18 @@ namespace Musebox_Web_Project.Migrations
                     b.Property<int>("BrandId")
                         .HasColumnType("int");
 
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProductPrice")
+                        .HasColumnType("int");
 
                     b.Property<string>("ProductType")
                         .IsRequired()
@@ -128,7 +156,7 @@ namespace Musebox_Web_Project.Migrations
 
             modelBuilder.Entity("Musebox_Web_Project.Models.Order", b =>
                 {
-                    b.HasOne("Musebox_Web_Project.Models.User", null)
+                    b.HasOne("Musebox_Web_Project.Models.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -138,7 +166,7 @@ namespace Musebox_Web_Project.Migrations
             modelBuilder.Entity("Musebox_Web_Project.Models.Product", b =>
                 {
                     b.HasOne("Musebox_Web_Project.Models.Brand", "Brand")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
