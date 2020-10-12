@@ -94,9 +94,9 @@ namespace Musebox_Web_Project.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(string userName, string password)
+        public async Task<ActionResult> Login(string email, string password)
         {
-            User userOrNull = _context.Users.SingleOrDefault<User>(user => user.UserName == userName && user.Password == password);
+            User userOrNull = _context.User.SingleOrDefault<User>(user => user.Email == email && user.Password == password);
             //User userOrNull = new User()
             //{
             //    UserName = " UserNameTest",
@@ -130,48 +130,48 @@ namespace Musebox_Web_Project.Controllers
             ViewBag.Logedin = false;
             ViewBag.Admin = false;
 
-            return View();
+            return RedirectToAction("Index", "Home");
         }
 
         // ToDo: Move to another place
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(string userName, string password, string firstName, string lastName, string email)
+        public async Task<ActionResult> Register(string firstName, string lastName, string email, string password)
         {
+
             if (!ModelState.IsValid)
             {
-
                 ViewBag.RegisterError = "Error. Model is Invalid";
                 return View();
             }
 
-            if (string.IsNullOrWhiteSpace(userName) ||
-                string.IsNullOrWhiteSpace(password) ||
+            if (string.IsNullOrWhiteSpace(password) ||
                 string.IsNullOrWhiteSpace(firstName) ||
                 string.IsNullOrWhiteSpace(lastName) ||
                 string.IsNullOrWhiteSpace(email))
             {
-                throw new ArgumentNullException("Username,password and name cannot be empty");
+                throw new ArgumentNullException("Email, password and name cannot be empty");
             }
 
             // Check if user Already exists.
 
-            User userOrNull = _context.Users.SingleOrDefault<User>(user => user.UserName == userName);
+            User userOrNull = _context.User.SingleOrDefault<User>(user => user.Email == email);
             if (userOrNull != null)
             {
-                throw new Exception("Username already exists. Pick another username");
+                throw new Exception("User already exists. Pick another username");
             }
 
             User newUser = new User()
             {
                 IsManager = false,
-                UserName = userName,
+                UserName = firstName + " " + lastName,
                 Password = password,
                 FirstName = firstName,
+                LastName = lastName,
                 Email = email
             };
 
-            _context.Users.Add(newUser);
+            _context.User.Add(newUser);
 
             await _context.SaveChangesAsync();
 
