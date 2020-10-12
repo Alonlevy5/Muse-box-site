@@ -22,5 +22,7 @@ namespace Musebox_Web_Project.Data
 
         public DbSet<Musebox_Web_Project.Models.Order> Order { get; set; }
 
+        public DbSet<Musebox_Web_Project.Models.Branch> Branch { get; set; }
+
     }
 }

@@ -96,7 +96,6 @@ namespace Musebox_Web_Project.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(string email, string password)
         {
-            User userOrNull = _context.User.SingleOrDefault<User>(user => user.Email == email && user.Password == password);
             //User userOrNull = new User()
             //{
             //    UserName = " UserNameTest",
@@ -106,18 +105,6 @@ namespace Musebox_Web_Project.Controllers
             //    IsManager = true
             //};
 
-            if (userOrNull == null)
-            {
-                // Incorrect!
-                ViewBag.IncorrectCredentials = true;
-                return View();
-            }
-            else
-            {
-                // Login.
-                await SignInSession(userOrNull);
-                // ViewData["Email"] = userOrNull.Email;
-            }
 
             return RedirectToAction("Index", "Home");
         }
@@ -155,8 +142,6 @@ namespace Musebox_Web_Project.Controllers
 
             // Check if user Already exists.
 
-            User userOrNull = _context.User.SingleOrDefault<User>(user => user.Email == email);
-            if (userOrNull != null)
             {
                 throw new Exception("User already exists. Pick another username");
             }
@@ -171,7 +156,6 @@ namespace Musebox_Web_Project.Controllers
                 Email = email
             };
 
-            _context.User.Add(newUser);
 
             await _context.SaveChangesAsync();
 
