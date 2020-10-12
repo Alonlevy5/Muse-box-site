@@ -25,6 +25,50 @@ namespace Musebox_Web_Project.Controllers
             return View(await _context.Branch.ToListAsync());
         }
 
+        public async Task<IActionResult> FilterSearch(string name, string address, double lat, double lng)
+        {
+            var result = from b in _context.Branch
+                         select b;
+
+            if (name != null)
+            {
+                result = from b in result
+                         where b.BranchName.Contains(name)
+                         select b;
+            }
+            if (address != null)
+            {
+                result = from b in result
+                         where b.Address.Contains(address)
+                         select b;
+            }
+            if (lat != 0)
+            {
+                result = from b in result
+                         where b.Latitude == lat
+                         select b;
+            }
+            if (lng != 0)
+            {
+                result = from b in result
+                         where b.Longitude == lng
+                         select b;
+            }
+
+            return View("Index", await result.ToListAsync());
+        }
+
+        public JsonResult GetBranches()
+        {
+            var result = _context.Branch.Select(loc => new
+            {
+                lat = loc.Latitude,
+                lng = loc.Longitude
+            }).ToList();
+
+            return Json(result);
+        }
+
         // GET: Branches/Details/5
         public async Task<IActionResult> Details(int? id)
         {

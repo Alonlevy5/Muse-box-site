@@ -26,6 +26,7 @@
 
     <!-- Template Main CSS File -->
     <link href="~/css/style.css" rel="stylesheet">
+    @RenderSection("Styles", required: false)
 
 </head>
 
@@ -39,11 +40,11 @@
                 <i class="icofont-phone"></i> +972 52 4592013
             </div>
             <div class="social-links">
-                <a href="#" class="twitter"><i class="icofont-twitter"></i></a>
-                <a href="#" class="facebook"><i class="icofont-facebook"></i></a>
-                <a href="#" class="instagram"><i class="icofont-instagram"></i></a>
-                <a href="#" class="skype"><i class="icofont-skype"></i></a>
-                <a href="#" class="linkedin"><i class="icofont-linkedin"></i></i></a>
+                <a href="https://www.facebook.com/Musebox-100473905172532" class="twitter"><i class="icofont-twitter"></i></a>
+                <a href="https://www.facebook.com/Musebox-100473905172532" class="facebook"><i class="icofont-facebook"></i></a>
+                <a href="https://www.facebook.com/Musebox-100473905172532" class="instagram"><i class="icofont-instagram"></i></a>
+                <a href="https://www.facebook.com/Musebox-100473905172532" class="skype"><i class="icofont-skype"></i></a>
+                <a href="https://www.facebook.com/Musebox-100473905172532" class="linkedin"><i class="icofont-linkedin"></i></a>
             </div>
         </div>
     </div>
@@ -53,7 +54,7 @@
         <div class="container d-flex align-items-center">
 
             <!-- image logo -->
-            <a asp-action="Index" class="logo mr-auto"><img src="~/img/musebox-logo.png" alt="" class="img-fluid"></a>
+            <a asp-action="Index" asp-controller="Home" class="logo mr-auto"><img src="~/img/musebox-logo.png" alt="" class="img-fluid"></a>
 
             <nav class="nav-menu d-none d-lg-block">
                 <ul>
@@ -61,8 +62,8 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Gallery", "Gallery", "Home")</li>
-                    <li> <a href="/Products"> Store</a> </li>
+                    <li>@Html.ActionLink("Catalog", "Catalog", "Home")</li>
+                    <li>@Html.ActionLink("Store", "Index", "Products")</li>
                     <li>@Html.ActionLink("Cart", "Cart", "Home")</li>
                     @if (ViewBag.Logedin == null || ViewBag.Logedin == false)
                     {
@@ -93,11 +94,11 @@
                                 Dizengoff St 50, TLV &nbsp <strong>Phone:</strong> +972 52 4592013 &nbsp <strong>Email:</strong> contact@musebox.com<br><br>
                             </p>
                             <div class="social-links mt-1">
-                                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-                                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                                <a href="https://www.facebook.com/Musebox-100473905172532" class="twitter"><i class="bx bxl-twitter"></i></a>
+                                <a href="https://www.facebook.com/Musebox-100473905172532" class="facebook"><i class="bx bxl-facebook"></i></a>
+                                <a href="https://www.facebook.com/Musebox-100473905172532" class="instagram"><i class="bx bxl-instagram"></i></a>
+                                <a href="https://www.facebook.com/Musebox-100473905172532" class="google-plus"><i class="bx bxl-skype"></i></a>
+                                <a href="https://www.facebook.com/Musebox-100473905172532" class="linkedin"><i class="bx bxl-linkedin"></i></a>
                             </div>
                         </div>
                     </div>
@@ -114,6 +115,10 @@
 
     <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
     <div id="preloader"></div>
+
+
+    <!-- Javascript sources -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <!-- Vendor JS Files -->
     <script src="~/vendor/jquery/jquery.min.js"></script>

@@ -1910,8 +1910,4 @@
     <None Include="wwwroot\Video\MuseboxAboutVideo.webm.xmp" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>

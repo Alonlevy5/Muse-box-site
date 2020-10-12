@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Musebox_Web_Project.Data;
 using Musebox_Web_Project.Models;
@@ -35,6 +36,40 @@ namespace Musebox_Web_Project.Controllers
             return View();
         }
 
+        public async Task<IActionResult> FilterSearchCatalog(string name, int price, string type, string brand)
+        {
+            var Musebox_Web_ProjectContext = _context.Products.Include(p => p.Brand);
+            var result = from p in Musebox_Web_ProjectContext
+                         select p;
+
+            if (name != null)
+            {
+                result = from p in result
+                         where p.ProductName.Contains(name)
+                         select p;
+            }
+            if (price > 0)
+            {
+                result = from p in result
+                         where p.ProductPrice <= price
+                         select p;
+            }
+            if (type != null)
+            {
+                result = from p in result
+                         where p.ProductType.Contains(type)
+                         select p;
+            }
+            if (brand != null)
+            {
+                result = from p in result
+                         where p.Brand.BrandName.Contains(brand)
+                         select p;
+            }
+
+            return View("Catalog", await result.ToListAsync());
+        }
+
         public IActionResult About()
         {
             SetUserToViewBag();
@@ -56,11 +91,12 @@ namespace Musebox_Web_Project.Controllers
             return View();
         }
 
-        public IActionResult Gallery()
+        public async Task<IActionResult> Catalog()
         {
             SetUserToViewBag();
 
-            return View();
+            var result = _context.Products.Include(p => p.Brand);
+            return View(await result.ToListAsync());
         }
 
         public IActionResult Login()
@@ -96,6 +132,7 @@ namespace Musebox_Web_Project.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(string email, string password)
         {
+            User userOrNull = _context.Users.SingleOrDefault<User>(user => user.Email == email && user.Password == password);
             //User userOrNull = new User()
             //{
             //    UserName = " UserNameTest",
@@ -105,6 +142,18 @@ namespace Musebox_Web_Project.Controllers
             //    IsManager = true
             //};
 
+            if (userOrNull == null)
+            {
+                // Incorrect!
+                ViewBag.IncorrectCredentials = true;
+                return View();
+            }
+            else
+            {
+                // Login.
+                await SignInSession(userOrNull);
+                // ViewData["Email"] = userOrNull.Email;
+            }
 
             return RedirectToAction("Index", "Home");
         }
@@ -142,6 +191,8 @@ namespace Musebox_Web_Project.Controllers
 
             // Check if user Already exists.
 
+            User userOrNull = _context.Users.SingleOrDefault<User>(user => user.Email == email);
+            if (userOrNull != null)
             {
                 throw new Exception("User already exists. Pick another username");
             }
@@ -156,6 +207,7 @@ namespace Musebox_Web_Project.Controllers
                 Email = email
             };
 
+            _context.Users.Add(newUser);
 
             await _context.SaveChangesAsync();
 

@@ -6,17 +6,30 @@
 
 <section id="products" class="products">
     <div class="container">
-
         <h1>Index</h1>
 
         <p>
             <a asp-action="Create">Create New</a>
         </p>
+
+        <div class="search-container">
+            <form asp-action="FilterSearch">
+                <input name="name" placeholder="filter by name...">
+                <input name="price" placeholder="filter by max price...">
+                <input name="type" placeholder="filter by type...">
+                <input name="brand" placeholder="filter by brand...">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+
         <table class="table">
             <thead>
-                <tr>
+                <tr class="table100-head">
                     <th>
                         @Html.DisplayNameFor(model => model.ProductName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProductPrice)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.ProductType)
@@ -35,12 +48,15 @@
                             @Html.DisplayFor(modelItem => item.ProductName)
                         </td>
                         <td>
+                            @Html.DisplayFor(modelItem => item.ProductPrice)
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.ProductType)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Brand.BrandName)
                         </td>
-                        <td>
+                        <td class="td-actions">
                             <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
                             <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
                             <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
@@ -50,4 +66,8 @@
             </tbody>
         </table>
     </div>
-</section><!-- End About Section -->
+</section>
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+}
