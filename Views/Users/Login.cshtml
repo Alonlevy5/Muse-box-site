@@ -1,5 +1,9 @@
-﻿@{ ViewData["Title"] = "Login";
-                Layout = "_UserLayout"; }
+﻿@model Musebox_Web_Project.Models.User
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "_UserLayout";
+}
 
 <div class="card-body p-0">
     <!-- Nested Row within Card Body -->
@@ -30,9 +34,6 @@
         </div>
     </div>
 </div>
-@if (ViewBag.IncorrectCredentials == true)
-{
-<script>alert('Username or password is wrong');</script>}
 
 <!-- Bootstrap core JavaScript-->
 <script src="~/user/vendor/jquery/jquery.min.js"></script>

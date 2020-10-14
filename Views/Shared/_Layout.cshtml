@@ -65,14 +65,16 @@
                     <li>@Html.ActionLink("Catalog", "Catalog", "Home")</li>
                     <li>@Html.ActionLink("Store", "Index", "Products")</li>
                     <li>@Html.ActionLink("Cart", "Cart", "Home")</li>
-                    @if (ViewBag.Logedin == null || ViewBag.Logedin == false)
+
+                    @if (Context.User.IsInRole("Admin") || Context.User.IsInRole("Customer"))
                     {
-                        <li>@Html.ActionLink("Login", "Login", "Home")</li>
+                        <li>@Html.ActionLink("Logout", "Logout", "Users")</li>
                     }
-                    @if (ViewBag.Logedin != null && ViewBag.Logedin == true)
+                    else
                     {
-                        <li><a asp-action="Logout">Logout</a></li>
+                        <li>@Html.ActionLink("Login", "Login", "Users")</li>
                     }
+
                 </ul>
             </nav><!-- .nav-menu -->
 

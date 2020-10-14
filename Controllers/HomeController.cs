@@ -31,15 +31,14 @@ namespace Musebox_Web_Project.Controllers
 
         public IActionResult Index()
         {
-            SetUserToViewBag();
 
             return View();
         }
 
         public async Task<IActionResult> FilterSearchCatalog(string name, int price, string type, string brand)
         {
-            var Musebox_Web_ProjectContext = _context.Products.Include(p => p.Brand);
-            var result = from p in Musebox_Web_ProjectContext
+            var my_MuseboxContext = _context.Products.Include(p => p.Brand);
+            var result = from p in my_MuseboxContext
                          select p;
 
             if (name != null)
@@ -72,50 +71,25 @@ namespace Musebox_Web_Project.Controllers
 
         public IActionResult About()
         {
-            SetUserToViewBag();
 
             return View();
         }
 
         public IActionResult Contact()
         {
-            SetUserToViewBag();
-
-            return View();
-        }
-
-        public IActionResult Store()
-        {
-            SetUserToViewBag();
 
             return View();
         }
 
         public async Task<IActionResult> Catalog()
         {
-            SetUserToViewBag();
 
             var result = _context.Products.Include(p => p.Brand);
             return View(await result.ToListAsync());
         }
 
-        public IActionResult Login()
-        {
-            SetUserToViewBag();
-
-            return View();
-        }
-
-        public IActionResult Register()
-        {
-            SetUserToViewBag();
-
-            return View();
-        }
-
         public IActionResult Cart()
         {
-            SetUserToViewBag();
 
             return View();
         }
@@ -126,133 +100,6 @@ namespace Musebox_Web_Project.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        #region Login
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(string email, string password)
-        {
-            User userOrNull = _context.Users.SingleOrDefault<User>(user => user.Email == email && user.Password == password);
-            //User userOrNull = new User()
-            //{
-            //    UserName = " UserNameTest",
-            //    FirstName = "FTest",
-            //    LastName = "LTest",
-            //    Password = "123",
-            //    IsManager = true
-            //};
-
-            if (userOrNull == null)
-            {
-                // Incorrect!
-                ViewBag.IncorrectCredentials = true;
-                return View();
-            }
-            else
-            {
-                // Login.
-                await SignInSession(userOrNull);
-                // ViewData["Email"] = userOrNull.Email;
-            }
-
-            return RedirectToAction("Index", "Home");
-        }
-
-        [HttpGet]
-        [Authorize]
-        public async Task<ActionResult> Logout()
-        {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            ViewBag.Logedin = false;
-            ViewBag.Admin = false;
-
-            return RedirectToAction("Index", "Home");
-        }
-
-        // ToDo: Move to another place
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(string firstName, string lastName, string email, string password)
-        {
-
-            if (!ModelState.IsValid)
-            {
-                ViewBag.RegisterError = "Error. Model is Invalid";
-                return View();
-            }
-
-            if (string.IsNullOrWhiteSpace(password) ||
-                string.IsNullOrWhiteSpace(firstName) ||
-                string.IsNullOrWhiteSpace(lastName) ||
-                string.IsNullOrWhiteSpace(email))
-            {
-                throw new ArgumentNullException("Email, password and name cannot be empty");
-            }
-
-            // Check if user Already exists.
-
-            User userOrNull = _context.Users.SingleOrDefault<User>(user => user.Email == email);
-            if (userOrNull != null)
-            {
-                throw new Exception("User already exists. Pick another username");
-            }
-
-            User newUser = new User()
-            {
-                IsManager = false,
-                UserName = firstName + " " + lastName,
-                Password = password,
-                FirstName = firstName,
-                LastName = lastName,
-                Email = email
-            };
-
-            _context.Users.Add(newUser);
-
-            await _context.SaveChangesAsync();
-
-            await SignInSession(newUser);
-
-            return RedirectToAction("Index", "Home");
-        }
-
-
-        #endregion
-
-        private async Task SignInSession(User user)
-        {
-            //HttpContext.Session.SetString("Logged", "1");
-
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name,user.UserName),
-                new Claim("FullName",user.DisplayName),
-                new Claim("FirstName",user.FirstName),
-                new Claim("LastName",user.LastName),
-                new Claim(ClaimTypes.Role,user.IsManager ? "Admin" : "User"),
-                new Claim("IsManager",user.IsManager.ToString()),
-            };
-
-            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            var authProperties = new AuthenticationProperties
-            {
-                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(60)
-            };
-
-            await HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity),
-                authProperties);
-        }
-
-        private void SetUserToViewBag()
-        {
-            Claim isAdmin = User.Claims.SingleOrDefault(c => c.Type == "IsManager");
-            if (isAdmin != null)
-            {
-                ViewBag.Logedin = true;
-                ViewBag.Admin = isAdmin.Value;
-            }
-        }
     }
 }

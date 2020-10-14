@@ -1,9 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Musebox_Web_Project.Models
 {
+    public enum UserType
+    {
+        Customer,
+        Admin
+    }
+
     public class User
     {
         [Key]
@@ -37,17 +44,13 @@ namespace Musebox_Web_Project.Models
         public string Email { get; set; }
 
         [Required]
-        [Display(Name = "IsManager")]
+        [DefaultValue(false)]
         public bool IsManager { get; set; }
+
+        [Display(Name = "User Type")]
+        public UserType UserType { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
 
-        public string DisplayName
-        {
-            get
-            {
-                return string.Format("{0} {1}", this.FirstName, this.LastName);
-            }
-        }
     }
-    }
+}

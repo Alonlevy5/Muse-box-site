@@ -22,7 +22,8 @@ namespace Musebox_Web_Project.Controllers
         // GET: Orders
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Order.ToListAsync());
+            var my_MuseboxContext = _context.Order.Include(o => o.User);
+            return View(await my_MuseboxContext.ToListAsync());
         }
 
         // GET: Orders/Details/5
@@ -46,6 +47,7 @@ namespace Musebox_Web_Project.Controllers
         // GET: Orders/Create
         public IActionResult Create()
         {
+            ViewData["UserId"] = new SelectList(_context.Users, "UserId", "UserName");
             return View();
         }
 
@@ -54,8 +56,10 @@ namespace Musebox_Web_Project.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderId,OrderDate,UserId,UserName")] Order order)
+        public async Task<IActionResult> Create([Bind("OrderId,OrderDate,UserId")] Order order)
         {
+            order.User = _context.Users.SingleOrDefault(u => u.UserId == order.UserId);
+
             if (ModelState.IsValid)
             {
                 _context.Add(order);
@@ -149,5 +153,7 @@ namespace Musebox_Web_Project.Controllers
         {
             return _context.Order.Any(e => e.OrderId == id);
         }
+
+
     }
 }

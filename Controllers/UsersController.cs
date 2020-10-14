@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +27,39 @@ namespace Musebox_Web_Project.Controllers
         public async Task<IActionResult> Index()
         {
             return View(await _context.Users.ToListAsync());
+        }
+
+        public async Task<IActionResult> FilterSearch(string userName, string firstName, string lastName, string email)
+        {
+            var result = from u in _context.Users
+                         select u;
+
+            if (userName != null)
+            {
+                result = from u in result
+                         where u.UserName.Contains(userName)
+                         select u;
+            }
+            if (firstName != null)
+            {
+                result = from u in result
+                         where u.FirstName.Contains(firstName)
+                         select u;
+            }
+            if (lastName != null)
+            {
+                result = from u in result
+                         where u.LastName.Contains(lastName)
+                         select u;
+            }
+            if (email != null)
+            {
+                result = from u in result
+                         where u.Email.Contains(email)
+                         select u;
+            }
+
+            return View("Index", await result.ToListAsync());
         }
 
         // GET: Users/Details/5
@@ -149,5 +186,132 @@ namespace Musebox_Web_Project.Controllers
         {
             return _context.Users.Any(e => e.UserId == id);
         }
+
+
+        //Registration and login/logout
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Login(string email, string password)
+        {
+            User userOrNull = _context.Users.SingleOrDefault(user => user.Email == email && user.Password == password);
+
+            if (userOrNull == null)
+            {
+                // User doesn't exist - redirect to login page
+                return RedirectToAction("Login", "User");
+            }
+            else
+            {
+                // Found user with same email - login
+                await SignInSession(userOrNull);
+                return RedirectToAction("Index", "Home");
+
+            }
+        }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<ActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        // ToDo: Move to another place
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Register(string firstName, string lastName, string email, string password)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                ViewBag.RegisterError = "Error. Model is Invalid";
+                return View();
+            }
+
+            if (string.IsNullOrWhiteSpace(password) ||
+                string.IsNullOrWhiteSpace(firstName) ||
+                string.IsNullOrWhiteSpace(lastName) ||
+                string.IsNullOrWhiteSpace(email))
+            {
+                throw new ArgumentNullException("Email, password and name cannot be empty");
+            }
+
+            // Check if user Already exists.
+
+            User userOrNull = _context.Users.SingleOrDefault(user => user.Email == email);
+            if (userOrNull != null)
+            {
+                throw new Exception("User already exists. Pick another username");
+            }
+
+            // If not, create a new user and add it to database
+            // Only "customer" users can be created through the normal register, others should be added by admins
+            User newUser = new User()
+            {
+                UserName = firstName + " " + lastName,
+                Password = password,
+                FirstName = firstName,
+                LastName = lastName,
+                Email = email,
+
+                IsManager = false,
+                UserType = UserType.Customer
+            };
+
+            _context.Users.Add(newUser);
+
+            await _context.SaveChangesAsync();
+
+            await SignInSession(newUser);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        private async Task SignInSession(User user)
+        {
+
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Role, user.UserType.ToString())
+            };
+
+            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var authProperties = new AuthenticationProperties
+            {
+                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(5)
+            };
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity),
+                authProperties);
+        }
+
+        private void SetUserToViewBag()
+        {
+            Claim isAdmin = User.Claims.SingleOrDefault(c => c.Type == "IsManager");
+            if (isAdmin != null)
+            {
+                ViewBag.Logedin = true;
+                ViewBag.Admin = isAdmin.Value;
+            }
+        }
+
+
     }
 }
