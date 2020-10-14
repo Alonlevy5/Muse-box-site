@@ -93,6 +93,10 @@ namespace Musebox_Web_Project.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("UserId,UserName,FirstName,LastName,Password,Email,IsManager")] User user)
         {
+            if (user.IsManager)
+                user.UserType = UserType.Admin;
+            else user.UserType = UserType.Customer;
+
             if (ModelState.IsValid)
             {
                 _context.Add(user);
@@ -125,6 +129,10 @@ namespace Musebox_Web_Project.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("UserId,UserName,FirstName,LastName,Password,Email,IsManager")] User user)
         {
+            if (user.IsManager)
+                user.UserType = UserType.Admin;
+            else user.UserType = UserType.Customer;
+
             if (id != user.UserId)
             {
                 return NotFound();
@@ -209,7 +217,7 @@ namespace Musebox_Web_Project.Controllers
             if (userOrNull == null)
             {
                 // User doesn't exist - redirect to login page
-                return RedirectToAction("Login", "User");
+                return RedirectToAction("Login", "Users");
             }
             else
             {
@@ -300,16 +308,6 @@ namespace Musebox_Web_Project.Controllers
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity),
                 authProperties);
-        }
-
-        private void SetUserToViewBag()
-        {
-            Claim isAdmin = User.Claims.SingleOrDefault(c => c.Type == "IsManager");
-            if (isAdmin != null)
-            {
-                ViewBag.Logedin = true;
-                ViewBag.Admin = isAdmin.Value;
-            }
         }
 
 

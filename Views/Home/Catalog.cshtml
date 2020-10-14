@@ -75,7 +75,11 @@
                         <div class="portfolio-info">
                             <h5 id="shop-item-title">@Html.DisplayFor(modelItem => item.Brand.BrandName) - @Html.DisplayFor(modelItem => item.ProductName)</h5>
                             <p>@Html.DisplayFor(modelItem => item.ProductPrice) $</p>
-                            <a class="details-link" title="Add to Cart"><i onclick="addItemToCart('1')" class="bx bx-plus shop-item-button"></i></a>
+                            @if (Context.User.IsInRole("Customer"))
+                            {
+                                <a class="details-link" title="Add to Cart"><i onclick="addItemToCart('1')" class="bx bx-plus shop-item-button"></i></a>
+
+                            }
                         </div>
                     </div>
                 }
@@ -95,7 +99,11 @@
                         <div class="portfolio-info">
                             <h5 id="shop-item-title">@Html.DisplayFor(modelItem => item.Brand.BrandName) - @Html.DisplayFor(modelItem => item.ProductName)</h5>
                             <p>@Html.DisplayFor(modelItem => item.ProductPrice) $</p>
-                            <a class="details-link" title="Add to Cart"><i onclick="addItemToCart('1')" class="bx bx-plus shop-item-button"></i></a>
+                            @if (Context.User.IsInRole("Customer"))
+                            {
+                                <a class="details-link" title="Add to Cart"><i onclick="addItemToCart('1')" class="bx bx-plus shop-item-button"></i></a>
+
+                            }
                         </div>
                     </div>
                 }
@@ -115,7 +123,11 @@
                         <div class="portfolio-info">
                             <h5 id="shop-item-title">@Html.DisplayFor(modelItem => item.Brand.BrandName) - @Html.DisplayFor(modelItem => item.ProductName)</h5>
                             <p>@Html.DisplayFor(modelItem => item.ProductPrice) $</p>
-                            <a class="details-link" title="Add to Cart"><i onclick="addItemToCart('1')" class="bx bx-plus shop-item-button"></i></a>
+                            @if (Context.User.IsInRole("Customer"))
+                            {
+                                <a class="details-link" title="Add to Cart"><i onclick="addItemToCart('1')" class="bx bx-plus shop-item-button"></i></a>
+
+                            }
                         </div>
                     </div>
                 }
