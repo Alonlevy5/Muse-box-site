@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -38,6 +39,16 @@ namespace Musebox_Web_Project.Models
         public int BrandId { get; set; }
 
         public virtual Brand Brand { get; set; }
+
+        public virtual ICollection<UserProduct> UserProducts { get; set; }
+
+        public virtual ICollection<OrderProduct> OrderProducts { get; set; }
+
+        public bool Equals([AllowNull] Product other)
+        {
+            if (this.ProductId == other.ProductId) return true;
+            else return false;
+        }
 
     }
 }

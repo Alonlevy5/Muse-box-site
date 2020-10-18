@@ -29,22 +29,31 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
+                @if (Model != null)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.BrandName)
-                        </td>
-                        <td class="td-actions">
-                            <a asp-action="Edit" asp-route-id="@item.BrandId">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.BrandId">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.BrandId">Delete</a>
-                        </td>
-                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BrandName)
+                            </td>
+                            <td class="td-actions">
+                                <a asp-action="Edit" asp-route-id="@item.BrandId">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.BrandId">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.BrandId">Delete</a>
+                            </td>
+                        </tr>
+                    }
                 }
+
             </tbody>
         </table>
-
+        @if (Model.Count() == 0)
+        {
+            <div class="section-title">
+                <h2>No Brands</h2>
+            </div>
+        }
     </div>
 </section>
 

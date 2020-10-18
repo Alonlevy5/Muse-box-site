@@ -600,9 +600,80 @@ section {
 }
 
 /*--------------------------------------------------------------
+# Recommended
+--------------------------------------------------------------*/
+.recommended .product {
+  text-align: center;
+  margin-bottom: 20px;
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.1);
+  padding-bottom: 20px;
+  background: #fff;
+}
+
+.recommended .product img {
+  max-width: 100%;
+  box-shadow: 0px 5px 20px -10px rgba(0, 0, 0, 0.1);
+  margin: 0 0 20px 0;
+}
+
+.recommended .product h4 {
+  font-family: lemon_milkbold, sans-serif;
+  font-weight: 600;
+  margin-bottom: 2px;
+  font-size: 18px;
+}
+
+.recommended .product span {
+  font-style: italic;
+  display: block;
+  font-size: 13px;
+}
+
+.recommended .product p {
+  padding-top: 10px;
+  font-size: 14px;
+  font-style: italic;
+  color: #aaaaaa;
+}
+
+/*--------------------------------------------------------------
+# Home-Index-Recommended
+--------------------------------------------------------------*/
+.home-index-recommended .product {
+  text-align: center;
+  margin-bottom: 20px;
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.1);
+  padding: 30px 20px;
+  background: #fff;
+}
+
+.home-index-recommended .product img {
+  max-width: 100%;
+  margin: 0 0 20px 0;
+}
+
+.home-index-recommended .product h4 {
+  font-weight: 700;
+  margin-bottom: 2px;
+  font-size: 18px;
+}
+
+.home-index-recommended .product span {
+  font-style: italic;
+  display: block;
+  font-size: 13px;
+}
+
+.home-index-recommended .product p {
+  padding-top: 10px;
+  font-size: 14px;
+  font-style: italic;
+  color: #aaaaaa;
+}
+
+/*--------------------------------------------------------------
 # Home-About
 --------------------------------------------------------------*/
-
 .home-about {
     background: #f2f2f2;
     margin-top: 110px;
@@ -629,6 +700,39 @@ section {
 }
 
 .home-about .content p:last-child {
+    margin-bottom: 0;
+}
+
+
+/*--------------------------------------------------------------
+# Home-Statistics
+--------------------------------------------------------------*/
+.home-statistics {
+    background: #f2f2f2;
+    margin-top: 110px;
+}
+
+.home-statistics .content h3 {
+    font-weight: 600;
+    font-size: 26px;
+}
+
+.home-statistics .content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.home-statistics .content ul li {
+    padding-bottom: 10px;
+}
+
+.home-statistics .content ul i {
+    font-size: 20px;
+    padding-right: 4px;
+    color: #02b2b2;
+}
+
+.home-statistics .content p:last-child {
     margin-bottom: 0;
 }
 

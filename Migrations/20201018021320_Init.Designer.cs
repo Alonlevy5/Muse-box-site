@@ -10,7 +10,7 @@ using Musebox_Web_Project.Data;
 namespace Musebox_Web_Project.Migrations
 {
     [DbContext(typeof(Musebox_Web_ProjectContext))]
-    [Migration("20201012184138_Init")]
+    [Migration("20201018021320_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -83,6 +83,21 @@ namespace Musebox_Web_Project.Migrations
                     b.ToTable("Order");
                 });
 
+            modelBuilder.Entity("Musebox_Web_Project.Models.OrderProduct", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("OrderProduct");
+                });
+
             modelBuilder.Entity("Musebox_Web_Project.Models.Product", b =>
                 {
                     b.Property<int>("ProductId")
@@ -95,9 +110,6 @@ namespace Musebox_Web_Project.Migrations
 
                     b.Property<byte[]>("Image")
                         .HasColumnType("varbinary(max)");
-
-                    b.Property<int?>("OrderId")
-                        .HasColumnType("int");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
@@ -113,8 +125,6 @@ namespace Musebox_Web_Project.Migrations
                     b.HasKey("ProductId");
 
                     b.HasIndex("BrandId");
-
-                    b.HasIndex("OrderId");
 
                     b.ToTable("Products");
                 });
@@ -149,9 +159,27 @@ namespace Musebox_Web_Project.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserType")
+                        .HasColumnType("int");
+
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Musebox_Web_Project.Models.UserProduct", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("UserProduct");
                 });
 
             modelBuilder.Entity("Musebox_Web_Project.Models.Order", b =>
@@ -163,6 +191,21 @@ namespace Musebox_Web_Project.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Musebox_Web_Project.Models.OrderProduct", b =>
+                {
+                    b.HasOne("Musebox_Web_Project.Models.Order", "Order")
+                        .WithMany("OrderProducts")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Musebox_Web_Project.Models.Product", "Product")
+                        .WithMany("OrderProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Musebox_Web_Project.Models.Product", b =>
                 {
                     b.HasOne("Musebox_Web_Project.Models.Brand", "Brand")
@@ -170,10 +213,21 @@ namespace Musebox_Web_Project.Migrations
                         .HasForeignKey("BrandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
 
-                    b.HasOne("Musebox_Web_Project.Models.Order", null)
-                        .WithMany("Products")
-                        .HasForeignKey("OrderId");
+            modelBuilder.Entity("Musebox_Web_Project.Models.UserProduct", b =>
+                {
+                    b.HasOne("Musebox_Web_Project.Models.Product", "Product")
+                        .WithMany("UserProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Musebox_Web_Project.Models.User", "User")
+                        .WithMany("UserProducts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

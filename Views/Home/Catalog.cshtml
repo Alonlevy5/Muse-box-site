@@ -77,8 +77,7 @@
                             <p>@Html.DisplayFor(modelItem => item.ProductPrice) $</p>
                             @if (Context.User.IsInRole("Customer"))
                             {
-                                <a class="details-link" title="Add to Cart"><i onclick="addItemToCart('1')" class="bx bx-plus shop-item-button"></i></a>
-
+                                <a href="@Url.Action("AddToCart", "Users", new { productId = item.ProductId})" class="details-link" title="Add to Cart"><i class="bx bx-plus shop-item-button"></i></a>
                             }
                         </div>
                     </div>
@@ -101,8 +100,7 @@
                             <p>@Html.DisplayFor(modelItem => item.ProductPrice) $</p>
                             @if (Context.User.IsInRole("Customer"))
                             {
-                                <a class="details-link" title="Add to Cart"><i onclick="addItemToCart('1')" class="bx bx-plus shop-item-button"></i></a>
-
+                                <a href="@Url.Action("AddToCart", "Users", new { productId = item.ProductId})" class="details-link" title="Add to Cart"><i class="bx bx-plus shop-item-button"></i></a>
                             }
                         </div>
                     </div>
@@ -125,8 +123,7 @@
                             <p>@Html.DisplayFor(modelItem => item.ProductPrice) $</p>
                             @if (Context.User.IsInRole("Customer"))
                             {
-                                <a class="details-link" title="Add to Cart"><i onclick="addItemToCart('1')" class="bx bx-plus shop-item-button"></i></a>
-
+                                <a href="@Url.Action("AddToCart", "Users", new { productId = item.ProductId})" class="details-link" title="Add to Cart"><i class="bx bx-plus shop-item-button"></i></a>
                             }
                         </div>
                     </div>

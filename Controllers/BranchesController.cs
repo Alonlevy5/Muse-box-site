@@ -193,5 +193,6 @@ namespace Musebox_Web_Project.Controllers
         {
             return _context.Branch.Any(e => e.BranchId == id);
         }
+
     }
 }

@@ -25,6 +25,21 @@ namespace Musebox_Web_Project.Controllers
             return View(await _context.Brand.ToListAsync());
         }
 
+        public async Task<IActionResult> FilterSearch(string name)
+        {
+            var result = from b in _context.Brand
+                         select b;
+
+            if (name != null)
+            {
+                result = from b in result
+                         where b.BrandName.Contains(name)
+                         select b;
+            }
+
+            return View("Index", await result.ToListAsync());
+        }
+
         // GET: Brands/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -149,5 +164,6 @@ namespace Musebox_Web_Project.Controllers
         {
             return _context.Brand.Any(e => e.BrandId == id);
         }
+
     }
 }

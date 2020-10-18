@@ -24,6 +24,10 @@
     <Compile Remove="Migrations\20201008131406_Init2.Designer.cs" />
     <Compile Remove="Migrations\20201008163455_Init.cs" />
     <Compile Remove="Migrations\20201008163455_Init.Designer.cs" />
+    <Compile Remove="Migrations\20201012184138_Init.cs" />
+    <Compile Remove="Migrations\20201012184138_Init.Designer.cs" />
+    <Compile Remove="Migrations\20201014083713_Update_User_Model.cs" />
+    <Compile Remove="Migrations\20201014083713_Update_User_Model.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,9 +42,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Home\Components\Recommended\Default.cshtml" />
     <None Include="wwwroot\font\lemonmilk\lemonmilk-bold-webfont.woff2" />
     <None Include="wwwroot\js\cart.js" />
     <None Include="wwwroot\js\main.js" />
+    <None Include="wwwroot\js\search.js" />
     <None Include="wwwroot\js\site.js" />
     <None Include="wwwroot\js\store.js" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />

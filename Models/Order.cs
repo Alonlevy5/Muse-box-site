@@ -23,7 +23,7 @@ namespace Musebox_Web_Project.Models
 
         public virtual User User { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<OrderProduct> OrderProducts { get; set; }
 
     }
 }

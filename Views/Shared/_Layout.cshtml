@@ -66,8 +66,8 @@
 
                     @if (Context.User.IsInRole("Customer"))
                     {
-                        <li>@Html.ActionLink("Cart", "Cart", "Home")</li>
-                        <li>@Html.ActionLink("My Orders", "GetMyOrders", "Order")</li>
+                        <li>@Html.ActionLink("Cart", "GetMyCart", "Products")</li>
+                        <li>@Html.ActionLink("My Orders", "GetMyOrders", "Orders")</li>
                     }
 
                     @if (Context.User.IsInRole("Admin"))

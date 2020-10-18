@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -26,6 +27,36 @@ namespace Musebox_Web_Project.Controllers
             return View(await my_MuseboxContext.ToListAsync());
         }
 
+        public async Task<IActionResult> GetMyOrders()
+        {
+            var result = from o in _context.Order.Include(o => o.User)
+                         where o.User.Email.Equals(User.FindFirstValue(ClaimTypes.Email))
+                         select o;
+
+            return View(await result.ToListAsync());
+        }
+
+        public async Task<IActionResult> FilterSearch(string name, DateTime date)
+        {
+            var result = from o in _context.Order.Include(u => u.User)
+                         select o;
+
+            if (name != null)
+            {
+                result = from o in result
+                         where o.User.UserName.Contains(name)
+                         select o;
+            }
+            if (!date.Year.Equals(0001))
+            {
+                result = from o in result
+                         where o.OrderDate.Date.Equals(date)
+                         select o;
+            }
+
+            return View("Index", await result.ToListAsync());
+        }
+
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -35,12 +66,23 @@ namespace Musebox_Web_Project.Controllers
             }
 
             var order = await _context.Order
-                .FirstOrDefaultAsync(m => m.OrderId == id);
-            if (order == null)
+                .Include(u => u.User)
+                .FirstOrDefaultAsync(o => o.OrderId == id);
+
+            var productsInOrderData = from p in _context.Products
+                                      .Include(b => b.Brand)
+                                      .Include(op => op.OrderProducts)
+                                      .ThenInclude(o => o.Order)
+                                      where p.OrderProducts
+                                      .Any(op => op.OrderId == order.OrderId)
+                                      select p;
+
+            if (order == null || productsInOrderData == null)
             {
                 return NotFound();
             }
 
+            ViewData["productsInOrderData"] = productsInOrderData;
             return View(order);
         }
 

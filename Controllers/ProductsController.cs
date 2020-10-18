@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -25,6 +26,39 @@ namespace Musebox_Web_Project.Controllers
         {
             var my_MuseboxContext = _context.Products.Include(p => p.Brand);
             return View(await my_MuseboxContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> GetMyCart()
+        {
+            User user = await _context.Users.FirstAsync(u => u.Email.Equals(User.FindFirstValue(ClaimTypes.Email)));
+
+            var data = _context.Products.Include(b => b.Brand).Include(p => p.UserProducts).ThenInclude(u => u.User);
+            var products = from p in data
+                           where p.UserProducts.Any(up => up.UserId == user.UserId)
+                           select p;
+
+            return View(await products.ToListAsync());
+        }
+
+        public async Task<IActionResult> DeleteFromCart(int productId)
+        {
+            User user = await _context.Users
+                .Include(u => u.UserProducts)
+                .ThenInclude(p => p.Product)
+                .FirstAsync(u => u.Email.Equals(User.FindFirstValue(ClaimTypes.Email)));
+
+            foreach (UserProduct up in user.UserProducts)
+            {
+                if (up.ProductId == productId)
+                {
+                    user.UserProducts.Remove(up);
+                    break;
+                }
+            }
+
+            _context.Update(user);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(GetMyCart));
         }
 
         public async Task<IActionResult> FilterSearch(string name, int price, string type, string brand)
@@ -198,5 +232,6 @@ namespace Musebox_Web_Project.Controllers
         {
             return _context.Products.Any(e => e.ProductId == id);
         }
+
     }
 }

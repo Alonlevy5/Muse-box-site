@@ -29,6 +29,94 @@ namespace Musebox_Web_Project.Controllers
             return View(await _context.Users.ToListAsync());
         }
 
+        public async Task<IActionResult> AddToCart(int productId, string returnUrl)
+        {
+
+            User user = await _context.Users.Include(up => up.UserProducts).FirstAsync(u => u.Email.Equals(User.FindFirstValue(ClaimTypes.Email)));
+            Product productToAdd = await _context.Products.Include(b => b.Brand).FirstAsync(p => p.ProductId == productId);
+
+            foreach (UserProduct item in user.UserProducts)
+                if (item.ProductId == productId)
+                    return RedirectToAction("GetMyCart", "Products");
+
+            if (productToAdd != null)
+            {
+                if (user.UserProducts == null)
+                    user.UserProducts = new List<UserProduct>();
+
+                user.UserProducts.Add(new UserProduct()
+                {
+                    ProductId = productToAdd.ProductId,
+                    Product = productToAdd,
+                    UserId = user.UserId,
+                    User = user
+                });
+
+                _context.Update(user);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("GetMyCart", "Products");
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Purchase()
+        {
+            User user = await _context.Users.Include(u => u.Orders)
+                .Include(up => up.UserProducts)
+                .ThenInclude(p => p.Product)
+                .FirstAsync(u => u.Email.Equals(User.FindFirstValue(ClaimTypes.Email)));
+
+            if (user.UserProducts.Count() != 0)
+            {
+                var data = _context.Products.Include(b => b.Brand).Include(p => p.UserProducts).ThenInclude(u => u.User);
+                var products = from p in data
+                               where p.UserProducts.Any(up => up.UserId == user.UserId)
+                               select p;
+
+                Order newOrder = new Order()
+                {
+                    UserId = user.UserId,
+                    User = user,
+                    OrderDate = DateTime.Now,
+                    OrderProducts = new List<OrderProduct>()
+                };
+
+                var addedOrder = _context.Add(newOrder).Entity;
+                await _context.SaveChangesAsync();
+
+                foreach (var item in products)
+                {
+
+                    addedOrder.OrderProducts.Add(new OrderProduct()
+                    {
+                        OrderId = addedOrder.OrderId,
+                        Order = addedOrder,
+                        ProductId = item.ProductId,
+                        Product = item
+                    });
+
+                }
+
+                _context.Update(addedOrder);
+                await _context.SaveChangesAsync();
+
+                if (user.Orders == null)
+                    user.Orders = new List<Order>();
+
+                user.Orders.Add(addedOrder);
+                user.UserProducts.Clear();
+
+                _context.Update(user);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction("GetMyOrders", "Orders");
+
+        }
+
         public async Task<IActionResult> FilterSearch(string userName, string firstName, string lastName, string email)
         {
             var result = from u in _context.Users
@@ -267,6 +355,7 @@ namespace Musebox_Web_Project.Controllers
 
             // If not, create a new user and add it to database
             // Only "customer" users can be created through the normal register, others should be added by admins
+
             User newUser = new User()
             {
                 UserName = firstName + " " + lastName,
@@ -276,11 +365,11 @@ namespace Musebox_Web_Project.Controllers
                 Email = email,
 
                 IsManager = false,
-                UserType = UserType.Customer
+                UserType = UserType.Customer,
+
             };
 
             _context.Users.Add(newUser);
-
             await _context.SaveChangesAsync();
 
             await SignInSession(newUser);
