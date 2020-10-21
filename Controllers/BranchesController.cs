@@ -58,6 +58,38 @@ namespace Musebox_Web_Project.Controllers
             return View("Index", await result.ToListAsync());
         }
 
+        public async Task<IActionResult> SearchBra(string name, string address, double lat, double lng)
+        {
+            var result = from b in _context.Branch
+                         select b;
+
+            if (name != null)
+            {
+                result = from b in result
+                         where b.BranchName.Contains(name)
+                         select b;
+            }
+            if (address != null)
+            {
+                result = from b in result
+                         where b.Address.Contains(address)
+                         select b;
+            }
+            if (lat != 0)
+            {
+                result = from b in result
+                         where b.Latitude == lat
+                         select b;
+            }
+            if (lng != 0)
+            {
+                result = from b in result
+                         where b.Longitude == lng
+                         select b;
+            }
+
+            return PartialView( await result.ToListAsync());
+        }
         public JsonResult GetBranches()
         {
             var result = _context.Branch.Select(loc => new
