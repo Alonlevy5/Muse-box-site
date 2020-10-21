@@ -31,6 +31,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\js\S\searchCatalog.js" />
+    <Content Remove="wwwroot\js\S\searchOrder.js" />
     <Content Remove="wwwroot\js\S\searchProduct.js" />
     <Content Remove="wwwroot\js\S\searchUser.js" />
   </ItemGroup>
@@ -51,6 +53,8 @@
     <None Include="wwwroot\font\lemonmilk\lemonmilk-bold-webfont.woff2" />
     <None Include="wwwroot\js\cart.js" />
     <None Include="wwwroot\js\main.js" />
+    <None Include="wwwroot\js\S\searchOrder.js" />
+    <None Include="wwwroot\js\S\searchCatalog.js" />
     <None Include="wwwroot\js\S\searchUser.js" />
     <None Include="wwwroot\js\S\searchProduct.js" />
     <None Include="wwwroot\js\S\searchBrand.js" />

@@ -1,57 +1,12 @@
 ﻿@model IEnumerable<Musebox_Web_Project.Models.Product>
 
-@{
-    ViewData["Title"] = "Catalog";
-    Layout = "_Layout";
-}
-
 
 <section id="portfolio" class="portfolio">
 
     <div class="container">
 
-        <div class="section-title">
-            <span>Catalog</span>
-            <h2>Catalog</h2>
-            <p>Browse through our products!</p>
-        </div>
 
-        <div class="row aos-init" data-aos="fade-up">
-            <div class="col-lg-12 d-flex justify-content-center">
-                <div class="s01">
-                    <form asp-action="SearchC" id="caTa">
-                        <div class="inner-form">
-                            <div class="input-field second-wrap">
-                                <input id="Cname" autocomplete="off" name="name" placeholder="Name">
-                            </div>
-                            <div class="input-field second-wrap">
-                                <input id="Cprice" autocomplete="off" name="price" placeholder="Price">
-                            </div>
-                            <div class="input-field second-wrap">
-                                <input id="Ctype" autocomplete="off" name="type" placeholder="Type">
-                            </div>
-                            <div class="input-field second-wrap">
-                                <input id="Cbrand" autocomplete="off" name="brand" placeholder="Brand">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="row aos-init" data-aos="fade-up">
-            <div class="col-lg-12 d-flex justify-content-center">
-                <ul id="portfolio-flters">
-                    <li data-filter="*" class="">All</li>
-                    <li data-filter=".filter-app" class="">Guitars</li>
-                    <li data-filter=".filter-card" class="">Effects</li>
-                    <li data-filter=".filter-web" class="">Amplifiers</li>
-                </ul>
-            </div>
-        </div>
-
-        <div id="mybody" class="row portfolio-container aos-init" height: 263.188px;">
+        <div class="row portfolio-container aos-init" height: 263.188px;">
 
             @foreach (var item in Model)
             {
@@ -132,7 +87,3 @@
 
 </section>
 
-
-@section Scripts{
-    <script src="~/js/S/searchCatalog.js"></script>
-}

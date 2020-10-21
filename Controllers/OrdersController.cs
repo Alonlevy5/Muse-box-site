@@ -57,6 +57,27 @@ namespace Musebox_Web_Project.Controllers
             return View("Index", await result.ToListAsync());
         }
 
+        public async Task<IActionResult> SearchO(string name, DateTime date)
+        {
+            var result = from o in _context.Order.Include(u => u.User)
+                         select o;
+
+            if (name != null)
+            {
+                result = from o in result
+                         where o.User.UserName.Contains(name)
+                         select o;
+            }
+            if (!date.Year.Equals(0001))
+            {
+                result = from o in result
+                         where o.OrderDate.Date.Equals(date)
+                         select o;
+            }
+
+            return PartialView( await result.ToListAsync());
+        }
+
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)
         {
