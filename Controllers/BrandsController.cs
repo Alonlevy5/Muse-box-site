@@ -40,6 +40,21 @@ namespace Musebox_Web_Project.Controllers
             return View("Index", await result.ToListAsync());
         }
 
+        public async Task<IActionResult> SearchB(string name)
+        {
+            var result = from b in _context.Brand
+                         select b;
+
+            if (name != null)
+            {
+                result = from b in result
+                         where b.BrandName.Contains(name)
+                         select b;
+            }
+
+            return PartialView( await result.ToListAsync());
+        }
+
         // GET: Brands/Details/5
         public async Task<IActionResult> Details(int? id)
         {

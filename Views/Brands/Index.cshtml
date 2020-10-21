@@ -13,9 +13,8 @@
         </p>
 
         <div class="search-container">
-            <form asp-action="FilterSearch">
-                <input name="name" placeholder="filter by name...">
-                <button type="submit"><i class="fa fa-search"></i></button>
+            <form asp-action="SearchB" id="brandS">
+                <input id="brandName" autocomplete="off" name="name" placeholder="filter by name...">
             </form>
         </div>
 
@@ -59,4 +58,10 @@
 
 @section Styles {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+}
+
+@section Scripts{
+
+    <script src="~/js/SearchBra/search.js"></script>
+
 }

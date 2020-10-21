@@ -46,7 +46,7 @@
     <None Include="wwwroot\font\lemonmilk\lemonmilk-bold-webfont.woff2" />
     <None Include="wwwroot\js\cart.js" />
     <None Include="wwwroot\js\main.js" />
-    <None Include="wwwroot\js\search.js" />
+    <None Include="wwwroot\js\SearchBra\search.js" />
     <None Include="wwwroot\js\site.js" />
     <None Include="wwwroot\js\store.js" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
