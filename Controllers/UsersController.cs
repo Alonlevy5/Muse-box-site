@@ -117,6 +117,39 @@ namespace Musebox_Web_Project.Controllers
 
         }
 
+        public async Task<IActionResult> SearchU(string userName, string firstName, string lastName, string email)
+        {
+            var result = from u in _context.Users
+                         select u;
+
+            if (userName != null)
+            {
+                result = from u in result
+                         where u.UserName.Contains(userName)
+                         select u;
+            }
+            if (firstName != null)
+            {
+                result = from u in result
+                         where u.FirstName.Contains(firstName)
+                         select u;
+            }
+            if (lastName != null)
+            {
+                result = from u in result
+                         where u.LastName.Contains(lastName)
+                         select u;
+            }
+            if (email != null)
+            {
+                result = from u in result
+                         where u.Email.Contains(email)
+                         select u;
+            }
+
+            return PartialView( await result.ToListAsync());
+        }
+
         public async Task<IActionResult> FilterSearch(string userName, string firstName, string lastName, string email)
         {
             var result = from u in _context.Users

@@ -95,6 +95,40 @@ namespace Musebox_Web_Project.Controllers
             return View("Index", await result.ToListAsync());
         }
 
+        public async Task<IActionResult> SearchP(string name, int price, string type, string brand)
+        {
+            var my_MuseboxContext = _context.Products.Include(p => p.Brand);
+            var result = from p in my_MuseboxContext
+                         select p;
+
+            if (name != null)
+            {
+                result = from p in result
+                         where p.ProductName.Contains(name)
+                         select p;
+            }
+            if (price > 0)
+            {
+                result = from p in result
+                         where p.ProductPrice <= price
+                         select p;
+            }
+            if (type != null)
+            {
+                result = from p in result
+                         where p.ProductType.Contains(type)
+                         select p;
+            }
+            if (brand != null)
+            {
+                result = from p in result
+                         where p.Brand.BrandName.Contains(brand)
+                         select p;
+            }
+
+            return PartialView( await result.ToListAsync());
+        }
+
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {

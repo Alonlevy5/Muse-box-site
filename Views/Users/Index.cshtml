@@ -13,12 +13,11 @@
         </p>
 
         <div class="search-container">
-            <form asp-action="FilterSearch">
-                <input name="userName" placeholder="filter by username...">
-                <input name="firstName" placeholder="filter by first name...">
-                <input name="lastName" placeholder="filter by last name...">
-                <input name="email" placeholder="filter by email...">
-                <button type="submit"><i class="fa fa-search"></i></button>
+            <form asp-action="SearchU" id="usE">
+                <input id="Nuser" autocomplete="off" name="userName" placeholder="filter by username...">
+                <input id="FNuser" autocomplete="off" name="firstName" placeholder="filter by first name...">
+                <input id="LNuser" autocomplete="off" name="lastName" placeholder="filter by last name...">
+                <input id="Euser" autocomplete="off" name="email" placeholder="filter by email...">
             </form>
         </div>
 
@@ -94,3 +93,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 }
 
+@section Scripts{
+
+    <script src="~/js/S/searchUser.js"></script>
+
+}
