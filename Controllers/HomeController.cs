@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
@@ -13,6 +14,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Musebox_Web_Project.Data;
 using Musebox_Web_Project.Models;
+using System.Data;
+
 
 namespace Musebox_Web_Project.Controllers
 {
@@ -128,9 +131,40 @@ namespace Musebox_Web_Project.Controllers
 
             return View();
         }
-
-        public IActionResult Statistics()
+        [HttpGet]
+        [HttpGet]
+        public ActionResult Statistics()
         {
+
+            ICollection<Stat> mylist = new List<Stat>();
+            var r = _context.Products.ToList()
+                    .GroupBy(q => q.ProductType);
+
+            foreach (var v in r)
+            {
+                mylist.Add(new Stat(v.Key, v.Count()));
+
+            }
+
+            ViewBag.data = mylist;
+
+            ICollection<Stat> mylist2 = new List<Stat>();
+
+            var productsSold = from p in _context.Products
+                               from o in _context.Order
+                               where o.OrderProducts.Any(op => op.ProductId == p.ProductId)
+                               select p;
+
+            var q = productsSold.ToList()
+                .GroupBy(q => q.ProductName);
+
+            foreach (var v in q)
+            {
+                mylist2.Add(new Stat(v.Key, v.Count()));
+
+            }
+
+            ViewBag.data2 = mylist2;
 
             return View();
         }
@@ -142,5 +176,22 @@ namespace Musebox_Web_Project.Controllers
         }
 
 
+        }
+    }
+public class Group<K, T>
+{
+    public K Key { get; set; }
+    public IEnumerable<T> Values { get; set; }
+}
+public class Stat
+{
+    public string Key;
+    public int Values;
+
+
+    public Stat(string key, int values)
+    {
+        Key = key;
+        Values = values;
     }
 }
