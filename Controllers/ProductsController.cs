@@ -15,7 +15,7 @@ namespace Musebox_Web_Project.Controllers
     public class ProductsController : Controller
     {
         private readonly Musebox_Web_ProjectContext _context;
-
+        public static string ClientName = "";
         public ProductsController(Musebox_Web_ProjectContext context)
         {
             _context = context;
@@ -28,7 +28,23 @@ namespace Musebox_Web_Project.Controllers
             return View(await my_MuseboxContext.ToListAsync());
         }
 
-        public async Task<IActionResult> GetMyCart()
+        [HttpGet]
+
+        public ActionResult Group()
+        {
+
+            var group = _context.Products.ToList()
+                   .GroupBy(q => q.ProductType)
+                   .Select(g => new Group<string, Product>
+                   {
+                       Key = g.Key,
+                       Values = g.ToList()
+                   });
+
+            return View(group.ToList());
+        }
+
+            public async Task<IActionResult> GetMyCart()
         {
             User user = await _context.Users.FirstAsync(u => u.Email.Equals(User.FindFirstValue(ClaimTypes.Email)));
 
@@ -268,4 +284,6 @@ namespace Musebox_Web_Project.Controllers
         }
 
     }
+
 }
+

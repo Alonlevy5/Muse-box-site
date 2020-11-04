@@ -24,7 +24,6 @@ namespace Musebox_Web_Project.Controllers
         private readonly Musebox_Web_ProjectContext _context;
 
         private readonly ILogger<HomeController> _logger;
-
         public HomeController(ILogger<HomeController> logger, Musebox_Web_ProjectContext context)
         {
             _logger = logger;
@@ -131,7 +130,8 @@ namespace Musebox_Web_Project.Controllers
 
             return View();
         }
-        [HttpGet]
+
+
         [HttpGet]
         public ActionResult Statistics()
         {
@@ -168,6 +168,8 @@ namespace Musebox_Web_Project.Controllers
 
             return View();
         }
+
+       
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
