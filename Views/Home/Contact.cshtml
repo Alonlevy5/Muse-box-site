@@ -1,5 +1,5 @@
 ﻿@{ ViewData["Title"] = "Contact";
-                Layout = "_Layout"; }
+    Layout = "_Layout"; }
 
 <section id="home-contact" class="home-contact">
     <div class="container">
@@ -82,24 +82,11 @@
     </div>
 </section>
 
-<!-- Weather scripts-->
-<script>
-    !function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (!d.getElementById(id)) {
-            js = d.createElement(s);
-            js.id = id;
-            js.src = 'https://weatherwidget.io/js/widget.min.js';
-            fjs.parentNode.insertBefore(js, fjs);
-        }
-    }
-        (document, 'script', 'weatherwidget-io-js');
-</script>
 
 <!-- Google map API scripts -->
 
 <script type="text/javascript">
-    let map;
+    var map;
 
     const LOCATIONS = [{
         lat: 32.07514,
@@ -126,9 +113,17 @@
         LOCATIONS.forEach(position => {
             new google.maps.Marker({ position, map });
         });
+
+
     }
 </script>
 
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgO2AFvhgiJT5jryVoCjF5fOWPBEQ32HI&callback=initMap">
 </script>
+
+@section Scripts{
+    <script src="~/js/weather.js"></script>
+}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>

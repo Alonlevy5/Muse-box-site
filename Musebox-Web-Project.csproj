@@ -38,6 +38,7 @@
     <Content Remove="wwwroot\js\S\searchOrder.js" />
     <Content Remove="wwwroot\js\S\searchProduct.js" />
     <Content Remove="wwwroot\js\S\searchUser.js" />
+    <Content Remove="wwwroot\js\weather.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -58,6 +59,7 @@
     <None Include="wwwroot\js\main.js" />
     <None Include="wwwroot\js\popUpC.js" />
     <None Include="wwwroot\js\googleMap.js" />
+    <None Include="wwwroot\js\weather.js" />
     <None Include="wwwroot\js\S\searchOrder.js" />
     <None Include="wwwroot\js\S\searchCatalog.js" />
     <None Include="wwwroot\js\S\searchBranch.js" />
