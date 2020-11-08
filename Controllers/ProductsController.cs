@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Facebook;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +21,27 @@ namespace Musebox_Web_Project.Controllers
         public ProductsController(Musebox_Web_ProjectContext context)
         {
             _context = context;
+        }
+
+
+        public void facebookCreatePost()
+        {
+            
+            dynamic messagePost = new ExpandoObject();
+            messagePost.message =" A new Product was added to our store! " +
+                " Check it out in our website";
+
+
+            string acccessToken = "EAAF0QzzmkkUBABj0glej1ZAhlf9GdW793rZC1B1D9ZBkem9Deqh5WjD7DyipTdJsyzsAQ9H42cf9XRjSiELZChaZBXNpEcKJ2anNMaLteZC83pT1YGFE5IZAI8DYRKeekhc4KLUmREwhY0mqcJz97RQwckJhH5uZA9DF9MYZCTVM4e99YKvOqyrZAp";
+            FacebookClient appp = new FacebookClient(acccessToken);
+            try
+            {
+                var postId = appp.Post("100473905172532" + "/feed", messagePost);
+            }
+            catch (FacebookOAuthException ex)
+            { //handle oauth exception } catch (FacebookApiException ex) { //handle facebook exception
+            }
+
         }
 
         // GET: Products
@@ -168,6 +191,7 @@ namespace Musebox_Web_Project.Controllers
         public IActionResult Create()
         {
             ViewData["BrandId"] = new SelectList(_context.Brand, "BrandId", "BrandName");
+            facebookCreatePost();
             return View();
         }
 

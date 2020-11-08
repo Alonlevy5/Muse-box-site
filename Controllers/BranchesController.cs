@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
+using Facebook;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Musebox_Web_Project.Data;
 using Musebox_Web_Project.Models;
+using Newtonsoft.Json;
 
 namespace Musebox_Web_Project.Controllers
 {
@@ -17,6 +20,35 @@ namespace Musebox_Web_Project.Controllers
         public BranchesController(Musebox_Web_ProjectContext context)
         {
             _context = context;
+        }
+
+
+        public void facebookCreatePostB()
+        {
+            dynamic messagePost = new ExpandoObject();
+            messagePost.message =
+                "A new store opening today :) check and found where in our website!!";
+            
+
+            string acccessToken = "EAAF0QzzmkkUBABj0glej1ZAhlf9GdW793rZC1B1D9ZBkem9Deqh5WjD7DyipTdJsyzsAQ9H42cf9XRjSiELZChaZBXNpEcKJ2anNMaLteZC83pT1YGFE5IZAI8DYRKeekhc4KLUmREwhY0mqcJz97RQwckJhH5uZA9DF9MYZCTVM4e99YKvOqyrZAp";
+            FacebookClient appp = new FacebookClient(acccessToken);
+            try
+            {
+                var postId = appp.Post("100473905172532" + "/feed", messagePost);
+            }
+            catch (FacebookOAuthException ex)
+            { //handle oauth exception } catch (FacebookApiException ex) { //handle facebook exception
+            }
+
+        }
+
+
+        [HttpGet]
+        public JsonResult GetAllLocation()
+        {
+            var j = new JsonSerializerSettings();
+            var data = _context.Branch.ToList();
+            return Json(data);
         }
 
         // GET: Branches
@@ -122,6 +154,7 @@ namespace Musebox_Web_Project.Controllers
         // GET: Branches/Create
         public IActionResult Create()
         {
+            facebookCreatePostB();
             return View();
         }
 
