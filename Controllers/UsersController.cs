@@ -37,7 +37,7 @@ namespace Musebox_Web_Project.Controllers
 
             foreach (UserProduct item in user.UserProducts)
                 if (item.ProductId == productId)
-                    return RedirectToAction("GetMyCart", "Products");
+                    return RedirectToAction("Catalog", "Home");
 
             if (productToAdd != null)
             {
@@ -56,7 +56,7 @@ namespace Musebox_Web_Project.Controllers
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToAction("GetMyCart", "Products");
+            return RedirectToAction("Catalog", "Home");
 
         }
 

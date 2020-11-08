@@ -72,39 +72,39 @@ namespace Musebox_Web_Project.Controllers
         }
 
 
-        public async Task<IActionResult> SearchC(string name, int price, string type, string brand)
-        {
-            var my_MuseboxContext = _context.Products.Include(p => p.Brand);
-            var result = from p in my_MuseboxContext
-                         select p;
+        //public async Task<IActionResult> SearchC(string name, int price, string type, string brand)
+        //{
+        //    var my_MuseboxContext = _context.Products.Include(p => p.Brand);
+        //    var result = from p in my_MuseboxContext
+        //                 select p;
 
-            if (name != null)
-            {
-                result = from p in result
-                         where p.ProductName.Contains(name)
-                         select p;
-            }
-            if (price > 0)
-            {
-                result = from p in result
-                         where p.ProductPrice <= price
-                         select p;
-            }
-            if (type != null)
-            {
-                result = from p in result
-                         where p.ProductType.Contains(type)
-                         select p;
-            }
-            if (brand != null)
-            {
-                result = from p in result
-                         where p.Brand.BrandName.Contains(brand)
-                         select p;
-            }
+        //    if (name != null)
+        //    {
+        //        result = from p in result
+        //                 where p.ProductName.Contains(name)
+        //                 select p;
+        //    }
+        //    if (price > 0)
+        //    {
+        //        result = from p in result
+        //                 where p.ProductPrice <= price
+        //                 select p;
+        //    }
+        //    if (type != null)
+        //    {
+        //        result = from p in result
+        //                 where p.ProductType.Contains(type)
+        //                 select p;
+        //    }
+        //    if (brand != null)
+        //    {
+        //        result = from p in result
+        //                 where p.Brand.BrandName.Contains(brand)
+        //                 select p;
+        //    }
 
-            return PartialView( await result.ToListAsync());
-        }
+        //    return PartialView( await result.ToListAsync());
+        //}
 
         public IActionResult About()
         {

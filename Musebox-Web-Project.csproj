@@ -31,6 +31,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\js\googleMap.js" />
+    <Content Remove="wwwroot\js\popUpC.js" />
     <Content Remove="wwwroot\js\S\searchBranch.js" />
     <Content Remove="wwwroot\js\S\searchCatalog.js" />
     <Content Remove="wwwroot\js\S\searchOrder.js" />
@@ -39,6 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Facebook" Version="7.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.8">
@@ -52,8 +55,9 @@
   <ItemGroup>
     <None Include="Views\Home\Components\Recommended\Default.cshtml" />
     <None Include="wwwroot\font\lemonmilk\lemonmilk-bold-webfont.woff2" />
-    <None Include="wwwroot\js\cart.js" />
     <None Include="wwwroot\js\main.js" />
+    <None Include="wwwroot\js\popUpC.js" />
+    <None Include="wwwroot\js\googleMap.js" />
     <None Include="wwwroot\js\S\searchOrder.js" />
     <None Include="wwwroot\js\S\searchCatalog.js" />
     <None Include="wwwroot\js\S\searchBranch.js" />
@@ -61,7 +65,6 @@
     <None Include="wwwroot\js\S\searchProduct.js" />
     <None Include="wwwroot\js\S\searchBrand.js" />
     <None Include="wwwroot\js\site.js" />
-    <None Include="wwwroot\js\store.js" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
     <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
