@@ -31,7 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\js\googleMap.js" />
     <Content Remove="wwwroot\js\popUpC.js" />
     <Content Remove="wwwroot\js\S\searchBranch.js" />
     <Content Remove="wwwroot\js\S\searchCatalog.js" />
@@ -59,7 +58,6 @@
     <None Include="wwwroot\font\lemonmilk\lemonmilk-bold-webfont.woff2" />
     <None Include="wwwroot\js\main.js" />
     <None Include="wwwroot\js\popUpC.js" />
-    <None Include="wwwroot\js\googleMap.js" />
     <None Include="wwwroot\js\weather.js" />
     <None Include="wwwroot\js\S\searchOrder.js" />
     <None Include="wwwroot\js\S\searchCatalog.js" />

@@ -123,7 +123,7 @@
 
                 var marker = [];
                 var info = [];
-                var infoWindow = [];
+                var infoW = [];
                  
                 for (var i = 0; i < data.length; i++) {
                     
@@ -134,25 +134,25 @@
                         map: map
                     });
 
-                    info[i] = data[i].Address;
-                    
+                    info[i] = data[i].address +': Here We Are ' ;
+                         
 
-                    infoWindow[i] = new google.maps.InfoWindow({
+                    infoW[i] = new google.maps.InfoWindow({
                         content: info[i]
                     });
-                    console.log(data);
+
 
                     var mdl = marker[i];
-                    google.maps.event.addListener(marker, 'mouseover', (function (mdl, i) {
+                    google.maps.event.addListener(marker[i], 'mouseover', (function (mdl, i) {
                         return function () {
-                            infowindow.open(map, marker);
+                            infoW[i].open(map, marker[i]);
                         }
-                    })(marker, i));
-                    google.maps.event.addListener(marker, 'mouseout', (function (mdl, i) {
+                    })(marker[i], i));
+                    google.maps.event.addListener(marker[i], 'mouseout', (function (mdl, i) {
                         return function () {
-                            infowindow.close();
+                            infoW[i].close();
                         }
-                    })(marker, i));
+                    })(marker[i], i));
 
                 }
 
@@ -165,7 +165,6 @@
 
 @section Scripts{
     <script src="~/js/weather.js"></script>
-    @*<script src="~/js/googleMap.js"></script>*@
 }
 
 <script async defer
