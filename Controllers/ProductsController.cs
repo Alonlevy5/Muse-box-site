@@ -38,9 +38,7 @@ namespace Musebox_Web_Project.Controllers
             {
                 var postId = appp.Post("100473905172532" + "/feed", messagePost);
             }
-            catch (FacebookOAuthException ex)
-            { //handle oauth exception } catch (FacebookApiException ex) { //handle facebook exception
-            }
+            catch (FacebookOAuthException ex) { }
 
         }
 

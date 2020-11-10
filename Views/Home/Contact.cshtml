@@ -1,6 +1,8 @@
 ﻿@{ ViewData["Title"] = "Contact";
     Layout = "_Layout"; }
 
+@model IEnumerable<Musebox_Web_Project.Models.Branch>
+
 <section id="home-contact" class="home-contact">
     <div class="container">
 
@@ -83,47 +85,89 @@
 </section>
 
 
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <!-- Google map API scripts -->
 
+
 <script type="text/javascript">
-    var map;
 
-    const LOCATIONS = [{
-        lat: 32.07514,
-        lng: 34.77571
-    }, {
-        lat: 31.97514,
-        lng: 34.8132
-    },
-    {
-        lat: 32.14187,
-        lng: 34.84337
-    }
-    ]
+        var map;
 
-    function initMap() {
-        map = new google.maps.Map(document.getElementById("map"), {
-            center: {
-                lat: 32.07514,
-                lng: 34.77571
-            },
-            zoom: 10,
-        });
+        //const LOCATIONS = [{
+        //    lat: 32.07514,
+        //    lng: 34.77571
+        //}, {
+        //    lat: 31.97514,
+        //    lng: 34.8132
+        //},
+        //{
+        //    lat: 32.14187,
+        //    lng: 34.84337
+        //}
+        //]
 
-        LOCATIONS.forEach(position => {
-            new google.maps.Marker({ position, map });
-        });
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: {
+                    lat: 32.07514,
+                    lng: 34.77571
+                },
+                zoom: 10,
+            });
 
 
-    }
-</script>
+            $.getJSON("@Url.Action("GetAllLocation", "Branches")", function (data, status) {
+
+                var marker = [];
+                var info = [];
+                var infoWindow = [];
+                 
+                for (var i = 0; i < data.length; i++) {
+                    
+                    var myLatlng = new google.maps.LatLng(data[i].latitude, data[i].longitude);
+
+                    marker[i] = new google.maps.Marker({
+                        position: myLatlng,
+                        map: map
+                    });
+
+                    info[i] = data[i].Address;
+                    
+
+                    infoWindow[i] = new google.maps.InfoWindow({
+                        content: info[i]
+                    });
+                    console.log(data);
+
+                    var mdl = marker[i];
+                    google.maps.event.addListener(marker, 'mouseover', (function (mdl, i) {
+                        return function () {
+                            infowindow.open(map, marker);
+                        }
+                    })(marker, i));
+                    google.maps.event.addListener(marker, 'mouseout', (function (mdl, i) {
+                        return function () {
+                            infowindow.close();
+                        }
+                    })(marker, i));
+
+                }
+
+            })
+
+        }
+    </script>
+
+
+
+@section Scripts{
+    <script src="~/js/weather.js"></script>
+    @*<script src="~/js/googleMap.js"></script>*@
+}
 
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgO2AFvhgiJT5jryVoCjF5fOWPBEQ32HI&callback=initMap">
 </script>
-
-@section Scripts{
-    <script src="~/js/weather.js"></script>
-}
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>

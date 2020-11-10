@@ -11,6 +11,9 @@ using Musebox_Web_Project.Data;
 using Musebox_Web_Project.Models;
 using Newtonsoft.Json;
 
+using System.Web;
+//using System.Web.Mvc;
+
 namespace Musebox_Web_Project.Controllers
 {
     public class BranchesController : Controller
@@ -36,9 +39,7 @@ namespace Musebox_Web_Project.Controllers
             {
                 var postId = appp.Post("100473905172532" + "/feed", messagePost);
             }
-            catch (FacebookOAuthException ex)
-            { //handle oauth exception } catch (FacebookApiException ex) { //handle facebook exception
-            }
+            catch (FacebookOAuthException ex)  {}
 
         }
 
@@ -46,7 +47,7 @@ namespace Musebox_Web_Project.Controllers
         [HttpGet]
         public JsonResult GetAllLocation()
         {
-            var j = new JsonSerializerSettings();
+
             var data = _context.Branch.ToList();
             return Json(data);
         }
