@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Facebook;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -65,6 +66,7 @@ namespace Musebox_Web_Project.Controllers
             return View(group.ToList());
         }
 
+        [Authorize(Policy = "Users")]
         public async Task<IActionResult> GetMyCart()
         {
             User user = await _context.Users.FirstAsync(u => u.Email.Equals(User.FindFirstValue(ClaimTypes.Email)));
@@ -77,6 +79,7 @@ namespace Musebox_Web_Project.Controllers
             return View(await products.ToListAsync());
         }
 
+        [Authorize(Policy = "Users")]
         public async Task<IActionResult> DeleteFromCart(int productId)
         {
             User user = await _context.Users
@@ -188,6 +191,7 @@ namespace Musebox_Web_Project.Controllers
         }
 
         // GET: Products/Create
+        [Authorize(Policy = "Admin")]
         public IActionResult Create()
         {
             ViewData["BrandId"] = new SelectList(_context.Brand, "BrandId", "BrandName");
@@ -200,6 +204,7 @@ namespace Musebox_Web_Project.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Create([Bind("ProductId,ProductName,ProductPrice,ProductType,BrandId,ImageFile")] Product product)
         {
             product.Brand = _context.Brand.SingleOrDefault(b => b.BrandId == product.BrandId);
@@ -220,6 +225,7 @@ namespace Musebox_Web_Project.Controllers
         }
 
         // GET: Products/Edit/5
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -241,6 +247,7 @@ namespace Musebox_Web_Project.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,ProductPrice,ProductType,BrandId")] Product product)
         {
             if (id != product.ProductId)
@@ -273,6 +280,7 @@ namespace Musebox_Web_Project.Controllers
         }
 
         // GET: Products/Delete/5
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -294,6 +302,7 @@ namespace Musebox_Web_Project.Controllers
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var product = await _context.Products.FindAsync(id);

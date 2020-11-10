@@ -170,7 +170,7 @@ namespace Musebox_Web_Project.Controllers
             return View();
         }
 
-       
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -179,8 +179,8 @@ namespace Musebox_Web_Project.Controllers
         }
 
 
-        }
     }
+}
 public class Group<K, T>
 {
     public K Key { get; set; }
