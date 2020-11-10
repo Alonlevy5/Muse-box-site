@@ -30,7 +30,8 @@ namespace Musebox_Web_Project.Controllers
         public async Task<IActionResult> GetMyOrders()
         {
             var result = from o in _context.Order.Include(o => o.User)
-                         where o.User.Email.Equals(User.FindFirstValue(ClaimTypes.Email))
+                         join u in _context.Users on o.UserId equals u.UserId
+                         where u.Email.Equals(User.FindFirstValue(ClaimTypes.Email))
                          select o;
 
             return View(await result.ToListAsync());
@@ -75,7 +76,7 @@ namespace Musebox_Web_Project.Controllers
                          select o;
             }
 
-            return PartialView( await result.ToListAsync());
+            return PartialView(await result.ToListAsync());
         }
 
         // GET: Orders/Details/5

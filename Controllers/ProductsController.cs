@@ -26,9 +26,9 @@ namespace Musebox_Web_Project.Controllers
 
         public void facebookCreatePost()
         {
-            
+
             dynamic messagePost = new ExpandoObject();
-            messagePost.message =" A new Product was added to our store! " +
+            messagePost.message = " A new Product was added to our store! " +
                 " Check it out in our website";
 
 
@@ -65,7 +65,7 @@ namespace Musebox_Web_Project.Controllers
             return View(group.ToList());
         }
 
-            public async Task<IActionResult> GetMyCart()
+        public async Task<IActionResult> GetMyCart()
         {
             User user = await _context.Users.FirstAsync(u => u.Email.Equals(User.FindFirstValue(ClaimTypes.Email)));
 
@@ -125,7 +125,8 @@ namespace Musebox_Web_Project.Controllers
             if (brand != null)
             {
                 result = from p in result
-                         where p.Brand.BrandName.Contains(brand)
+                         join b in _context.Brand on p.BrandId equals b.BrandId
+                         where b.BrandName.Contains(brand)
                          select p;
             }
 
@@ -159,11 +160,12 @@ namespace Musebox_Web_Project.Controllers
             if (brand != null)
             {
                 result = from p in result
-                         where p.Brand.BrandName.Contains(brand)
+                         join b in _context.Brand on p.BrandId equals b.BrandId
+                         where b.BrandName.Contains(brand)
                          select p;
             }
 
-            return PartialView( await result.ToListAsync());
+            return PartialView(await result.ToListAsync());
         }
 
         // GET: Products/Details/5

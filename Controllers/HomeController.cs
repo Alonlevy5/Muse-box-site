@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -64,7 +64,8 @@ namespace Musebox_Web_Project.Controllers
             if (brand != null)
             {
                 result = from p in result
-                         where p.Brand.BrandName.Contains(brand)
+                         join b in _context.Brand on p.BrandId equals b.BrandId
+                         where b.BrandName.Contains(brand)
                          select p;
             }
 
