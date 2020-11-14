@@ -46,7 +46,6 @@ namespace Musebox_Web_Project.Controllers
 
 
         [HttpGet]
-        [Authorize(Policy = "Admin")]
         public JsonResult GetAllLocation()
         {
 

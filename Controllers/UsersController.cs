@@ -30,7 +30,7 @@ namespace Musebox_Web_Project.Controllers
             return View(await _context.Users.ToListAsync());
         }
 
-        [Authorize(Policy = "Admin")]
+        [Authorize(Policy = "Users")]
         public async Task<IActionResult> AddToCart(int productId, string returnUrl)
         {
 
@@ -64,7 +64,7 @@ namespace Musebox_Web_Project.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Policy = "Admin")]
+        [Authorize(Policy = "Users")]
         public async Task<IActionResult> Purchase()
         {
             User user = await _context.Users.Include(u => u.Orders)
