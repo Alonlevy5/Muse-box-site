@@ -24,11 +24,13 @@ namespace Musebox_Web_Project.Controllers
         }
 
         // GET: Users
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Users.ToListAsync());
         }
 
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> AddToCart(int productId, string returnUrl)
         {
 
@@ -62,6 +64,7 @@ namespace Musebox_Web_Project.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Purchase()
         {
             User user = await _context.Users.Include(u => u.Orders)
@@ -117,6 +120,7 @@ namespace Musebox_Web_Project.Controllers
 
         }
 
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> SearchU(string userName, string firstName, string lastName, string email)
         {
             var result = from u in _context.Users
@@ -147,9 +151,10 @@ namespace Musebox_Web_Project.Controllers
                          select u;
             }
 
-            return PartialView( await result.ToListAsync());
+            return PartialView(await result.ToListAsync());
         }
 
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> FilterSearch(string userName, string firstName, string lastName, string email)
         {
             var result = from u in _context.Users
@@ -184,6 +189,7 @@ namespace Musebox_Web_Project.Controllers
         }
 
         // GET: Users/Details/5
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -202,6 +208,7 @@ namespace Musebox_Web_Project.Controllers
         }
 
         // GET: Users/Create
+        [Authorize(Policy = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -212,6 +219,7 @@ namespace Musebox_Web_Project.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Create([Bind("UserId,UserName,FirstName,LastName,Password,Email,IsManager")] User user)
         {
             if (user.IsManager)
@@ -228,6 +236,7 @@ namespace Musebox_Web_Project.Controllers
         }
 
         // GET: Users/Edit/5
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -248,6 +257,7 @@ namespace Musebox_Web_Project.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("UserId,UserName,FirstName,LastName,Password,Email,IsManager")] User user)
         {
             if (user.IsManager)
@@ -283,6 +293,7 @@ namespace Musebox_Web_Project.Controllers
         }
 
         // GET: Users/Delete/5
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -303,6 +314,7 @@ namespace Musebox_Web_Project.Controllers
         // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var user = await _context.Users.FindAsync(id);
@@ -350,7 +362,7 @@ namespace Musebox_Web_Project.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Policy = "Users")]
         public async Task<ActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

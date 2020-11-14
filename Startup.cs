@@ -11,6 +11,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Musebox_Web_Project.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
+using Musebox_Web_Project.Models;
 
 namespace Musebox_Web_Project
 {
@@ -31,8 +33,11 @@ namespace Musebox_Web_Project
                 .AddRazorRuntimeCompilation();
             services.AddSession(options => options.IdleTimeout = TimeSpan.FromHours(24));
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
-            services.AddAuthorization();
-
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Users", policy => policy.RequireClaim(ClaimTypes.Role, UserType.Admin.ToString(), UserType.Customer.ToString()));
+                options.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, UserType.Admin.ToString()));
+            });
             services.AddDbContext<Musebox_Web_ProjectContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("Musebox_Web_ProjectContext")));
         }

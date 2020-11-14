@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -64,7 +64,8 @@ namespace Musebox_Web_Project.Controllers
             if (brand != null)
             {
                 result = from p in result
-                         where p.Brand.BrandName.Contains(brand)
+                         join b in _context.Brand on p.BrandId equals b.BrandId
+                         where b.BrandName.Contains(brand)
                          select p;
             }
 
@@ -133,6 +134,7 @@ namespace Musebox_Web_Project.Controllers
 
 
         [HttpGet]
+        [Authorize(Policy = "Admin")]
         public ActionResult Statistics()
         {
 
@@ -169,7 +171,7 @@ namespace Musebox_Web_Project.Controllers
             return View();
         }
 
-       
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -178,8 +180,8 @@ namespace Musebox_Web_Project.Controllers
         }
 
 
-        }
     }
+}
 public class Group<K, T>
 {
     public K Key { get; set; }
