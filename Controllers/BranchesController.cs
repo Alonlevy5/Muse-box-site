@@ -12,6 +12,7 @@ using Musebox_Web_Project.Models;
 using Newtonsoft.Json;
 
 using System.Web;
+using Microsoft.AspNetCore.Authorization;
 //using System.Web.Mvc;
 
 namespace Musebox_Web_Project.Controllers
@@ -31,7 +32,7 @@ namespace Musebox_Web_Project.Controllers
             dynamic messagePost = new ExpandoObject();
             messagePost.message =
                 "A new store opening today :) check and found where in our website!!";
-            
+
 
             string acccessToken = "EAAF0QzzmkkUBABj0glej1ZAhlf9GdW793rZC1B1D9ZBkem9Deqh5WjD7DyipTdJsyzsAQ9H42cf9XRjSiELZChaZBXNpEcKJ2anNMaLteZC83pT1YGFE5IZAI8DYRKeekhc4KLUmREwhY0mqcJz97RQwckJhH5uZA9DF9MYZCTVM4e99YKvOqyrZAp";
             FacebookClient appp = new FacebookClient(acccessToken);
@@ -39,12 +40,13 @@ namespace Musebox_Web_Project.Controllers
             {
                 var postId = appp.Post("100473905172532" + "/feed", messagePost);
             }
-            catch (FacebookOAuthException ex)  {}
+            catch (FacebookOAuthException ex) { }
 
         }
 
 
         [HttpGet]
+        [Authorize(Policy = "Admin")]
         public JsonResult GetAllLocation()
         {
 
@@ -53,11 +55,13 @@ namespace Musebox_Web_Project.Controllers
         }
 
         // GET: Branches
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Branch.ToListAsync());
         }
 
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> FilterSearch(string name, string address, double lat, double lng)
         {
             var result = from b in _context.Branch
@@ -91,6 +95,7 @@ namespace Musebox_Web_Project.Controllers
             return View("Index", await result.ToListAsync());
         }
 
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> SearchBra(string name, string address, double lat, double lng)
         {
             var result = from b in _context.Branch
@@ -121,8 +126,10 @@ namespace Musebox_Web_Project.Controllers
                          select b;
             }
 
-            return PartialView( await result.ToListAsync());
+            return PartialView(await result.ToListAsync());
         }
+
+        [Authorize(Policy = "Admin")]
         public JsonResult GetBranches()
         {
             var result = _context.Branch.Select(loc => new
@@ -135,6 +142,7 @@ namespace Musebox_Web_Project.Controllers
         }
 
         // GET: Branches/Details/5
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -152,6 +160,7 @@ namespace Musebox_Web_Project.Controllers
             return View(branch);
         }
 
+        [Authorize(Policy = "Admin")]
         // GET: Branches/Create
         public IActionResult Create()
         {
@@ -164,6 +173,7 @@ namespace Musebox_Web_Project.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Create([Bind("BranchId,BranchName,Address,Latitude,Longitude")] Branch branch)
         {
             if (ModelState.IsValid)
@@ -176,6 +186,7 @@ namespace Musebox_Web_Project.Controllers
         }
 
         // GET: Branches/Edit/5
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -196,6 +207,7 @@ namespace Musebox_Web_Project.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("BranchId,BranchName,Address,Latitude,Longitude")] Branch branch)
         {
             if (id != branch.BranchId)
@@ -227,6 +239,7 @@ namespace Musebox_Web_Project.Controllers
         }
 
         // GET: Branches/Delete/5
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -246,6 +259,7 @@ namespace Musebox_Web_Project.Controllers
 
         // POST: Branches/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Policy = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

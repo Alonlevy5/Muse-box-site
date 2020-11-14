@@ -44,6 +44,7 @@ namespace Musebox_Web_Project.Controllers
         }
 
         // GET: Products
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Index()
         {
             var my_MuseboxContext = _context.Products.Include(p => p.Brand);
@@ -51,7 +52,7 @@ namespace Musebox_Web_Project.Controllers
         }
 
         [HttpGet]
-
+        [Authorize(Policy = "Admin")]
         public ActionResult Group()
         {
 

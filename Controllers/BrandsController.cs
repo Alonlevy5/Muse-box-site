@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -52,7 +53,7 @@ namespace Musebox_Web_Project.Controllers
                          select b;
             }
 
-            return PartialView( await result.ToListAsync());
+            return PartialView(await result.ToListAsync());
         }
 
         // GET: Brands/Details/5
@@ -74,6 +75,7 @@ namespace Musebox_Web_Project.Controllers
         }
 
         // GET: Brands/Create
+        [Authorize(Policy = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -84,6 +86,7 @@ namespace Musebox_Web_Project.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Create([Bind("BrandId,BrandName")] Brand brand)
         {
             if (ModelState.IsValid)
@@ -96,6 +99,7 @@ namespace Musebox_Web_Project.Controllers
         }
 
         // GET: Brands/Edit/5
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -116,6 +120,7 @@ namespace Musebox_Web_Project.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("BrandId,BrandName")] Brand brand)
         {
             if (id != brand.BrandId)
@@ -147,6 +152,7 @@ namespace Musebox_Web_Project.Controllers
         }
 
         // GET: Brands/Delete/5
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -166,6 +172,7 @@ namespace Musebox_Web_Project.Controllers
 
         // POST: Brands/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Policy = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
