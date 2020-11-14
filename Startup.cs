@@ -36,7 +36,7 @@ namespace Musebox_Web_Project
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("Users", policy => policy.RequireClaim(ClaimTypes.Role, UserType.Admin.ToString(), UserType.Customer.ToString()));
-                options.AddPolicy("AdminOnly", policy => policy.RequireClaim(ClaimTypes.Role, UserType.Admin.ToString()));
+                options.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, UserType.Admin.ToString()));
             });
             services.AddDbContext<Musebox_Web_ProjectContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("Musebox_Web_ProjectContext")));
