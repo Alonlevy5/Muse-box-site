@@ -5,6 +5,7 @@
     Layout = "_Layout";
 }
 
+<script src="~/js/store.js"></script>
 
 <section id="portfolio" class="portfolio">
 
@@ -54,7 +55,7 @@
             </div>
         </div>
 
-        <div id="mybody" class="row portfolio-container aos-init" height: 263.188px;">
+        <div class="row portfolio-container aos-init" height: 263.188px;">
 
             @foreach (var item in Model)
             {
@@ -64,7 +65,7 @@
                         @if (item.Image != null)
                         {
                             string img = Convert.ToBase64String(item.Image);
-                            <img src="data:image/png;base64,@img" loading="lazy" class="img-fluid" alt="">
+                            <img src="data:image/png;base64,@img" class="img-fluid" alt="">
                         }
                         else
                         {
@@ -87,7 +88,7 @@
                         @if (item.Image != null)
                         {
                             string img = Convert.ToBase64String(item.Image);
-                            <img src="data:image/png;base64,@img" loading="lazy" class="img-fluid" alt="">
+                            <img src="data:image/png;base64,@img" class="img-fluid" alt="">
                         }
                         else
                         {
@@ -110,7 +111,7 @@
                         @if (item.Image != null)
                         {
                             string img = Convert.ToBase64String(item.Image);
-                            <img src="data:image/png;base64,@img" loading="lazy" class="img-fluid" alt="">
+                            <img src="data:image/png;base64,@img" class="img-fluid" alt="">
                         }
                         else
                         {
@@ -135,8 +136,3 @@
 
 </section>
 
-
-@section Scripts{
-    <script src="~/js/S/searchCatalog.js"></script>
-<script src="~/js/popUpC.js"></script>
-}
