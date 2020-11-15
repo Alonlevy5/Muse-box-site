@@ -182,10 +182,14 @@ namespace Musebox_Web_Project.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        #region Private Methods
+
         private bool BrandExists(int id)
         {
             return _context.Brand.Any(e => e.BrandId == id);
         }
+
+        #endregion
 
     }
 }

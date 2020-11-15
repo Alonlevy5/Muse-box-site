@@ -26,25 +26,6 @@ namespace Musebox_Web_Project.Controllers
             _context = context;
         }
 
-
-        public void facebookCreatePostB()
-        {
-            dynamic messagePost = new ExpandoObject();
-            messagePost.message =
-                "A new store opening today :) check and found where in our website!!";
-
-
-            string acccessToken = "EAAF0QzzmkkUBABj0glej1ZAhlf9GdW793rZC1B1D9ZBkem9Deqh5WjD7DyipTdJsyzsAQ9H42cf9XRjSiELZChaZBXNpEcKJ2anNMaLteZC83pT1YGFE5IZAI8DYRKeekhc4KLUmREwhY0mqcJz97RQwckJhH5uZA9DF9MYZCTVM4e99YKvOqyrZAp";
-            FacebookClient appp = new FacebookClient(acccessToken);
-            try
-            {
-                var postId = appp.Post("100473905172532" + "/feed", messagePost);
-            }
-            catch (FacebookOAuthException ex) { }
-
-        }
-
-
         [HttpGet]
         public JsonResult GetAllLocation()
         {
@@ -268,10 +249,30 @@ namespace Musebox_Web_Project.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        #region Private Methods
+
         private bool BranchExists(int id)
         {
             return _context.Branch.Any(e => e.BranchId == id);
         }
 
+        private void facebookCreatePostB()
+        {
+            dynamic messagePost = new ExpandoObject();
+            messagePost.message =
+                "A new store opening today :) check and found where in our website!!";
+
+
+            string acccessToken = "EAAF0QzzmkkUBABj0glej1ZAhlf9GdW793rZC1B1D9ZBkem9Deqh5WjD7DyipTdJsyzsAQ9H42cf9XRjSiELZChaZBXNpEcKJ2anNMaLteZC83pT1YGFE5IZAI8DYRKeekhc4KLUmREwhY0mqcJz97RQwckJhH5uZA9DF9MYZCTVM4e99YKvOqyrZAp";
+            FacebookClient appp = new FacebookClient(acccessToken);
+            try
+            {
+                var postId = appp.Post("100473905172532" + "/feed", messagePost);
+            }
+            catch (FacebookOAuthException ex) { }
+
+        }
+
+        #endregion
     }
 }

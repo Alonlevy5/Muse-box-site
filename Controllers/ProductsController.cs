@@ -19,28 +19,10 @@ namespace Musebox_Web_Project.Controllers
     {
         private readonly Musebox_Web_ProjectContext _context;
         public static string ClientName = "";
+
         public ProductsController(Musebox_Web_ProjectContext context)
         {
             _context = context;
-        }
-
-
-        public void facebookCreatePost()
-        {
-
-            dynamic messagePost = new ExpandoObject();
-            messagePost.message = " A new Product was added to our store! " +
-                " Check it out in our website";
-
-
-            string acccessToken = "EAAF0QzzmkkUBABj0glej1ZAhlf9GdW793rZC1B1D9ZBkem9Deqh5WjD7DyipTdJsyzsAQ9H42cf9XRjSiELZChaZBXNpEcKJ2anNMaLteZC83pT1YGFE5IZAI8DYRKeekhc4KLUmREwhY0mqcJz97RQwckJhH5uZA9DF9MYZCTVM4e99YKvOqyrZAp";
-            FacebookClient appp = new FacebookClient(acccessToken);
-            try
-            {
-                var postId = appp.Post("100473905172532" + "/feed", messagePost);
-            }
-            catch (FacebookOAuthException ex) { }
-
         }
 
         // GET: Products
@@ -312,12 +294,42 @@ namespace Musebox_Web_Project.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        #region Private Methods
+
+
         private bool ProductExists(int id)
         {
             return _context.Products.Any(e => e.ProductId == id);
         }
 
+
+        private void facebookCreatePost()
+        {
+
+            dynamic messagePost = new ExpandoObject();
+            messagePost.message = " A new Product was added to our store! " +
+                " Check it out in our website";
+
+
+            string acccessToken = "EAAF0QzzmkkUBABj0glej1ZAhlf9GdW793rZC1B1D9ZBkem9Deqh5WjD7DyipTdJsyzsAQ9H42cf9XRjSiELZChaZBXNpEcKJ2anNMaLteZC83pT1YGFE5IZAI8DYRKeekhc4KLUmREwhY0mqcJz97RQwckJhH5uZA9DF9MYZCTVM4e99YKvOqyrZAp";
+            FacebookClient appp = new FacebookClient(acccessToken);
+            try
+            {
+                var postId = appp.Post("100473905172532" + "/feed", messagePost);
+            }
+            catch (FacebookOAuthException ex) { }
+
+        }
+
+        #endregion
+
     }
 
-}
+    public class Group<K, T>
+    {
+        public K Key { get; set; }
+        public IEnumerable<T> Values { get; set; }
+    }
 
+
+}

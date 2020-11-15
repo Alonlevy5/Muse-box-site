@@ -422,6 +422,8 @@ namespace Musebox_Web_Project.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        #region Private Methods
+
         private async Task SignInSession(User user)
         {
 
@@ -444,6 +446,7 @@ namespace Musebox_Web_Project.Controllers
                 authProperties);
         }
 
+        #endregion
 
     }
 }

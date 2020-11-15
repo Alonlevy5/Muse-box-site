@@ -22,8 +22,8 @@ namespace Musebox_Web_Project.Controllers
     public class HomeController : Controller
     {
         private readonly Musebox_Web_ProjectContext _context;
-
         private readonly ILogger<HomeController> _logger;
+
         public HomeController(ILogger<HomeController> logger, Musebox_Web_ProjectContext context)
         {
             _logger = logger;
@@ -33,7 +33,6 @@ namespace Musebox_Web_Project.Controllers
 
         public IActionResult Index()
         {
-
             return View();
         }
 
@@ -71,41 +70,6 @@ namespace Musebox_Web_Project.Controllers
 
             return View("Catalog", await result.ToListAsync());
         }
-
-
-        //public async Task<IActionResult> SearchC(string name, int price, string type, string brand)
-        //{
-        //    var my_MuseboxContext = _context.Products.Include(p => p.Brand);
-        //    var result = from p in my_MuseboxContext
-        //                 select p;
-
-        //    if (name != null)
-        //    {
-        //        result = from p in result
-        //                 where p.ProductName.Contains(name)
-        //                 select p;
-        //    }
-        //    if (price > 0)
-        //    {
-        //        result = from p in result
-        //                 where p.ProductPrice <= price
-        //                 select p;
-        //    }
-        //    if (type != null)
-        //    {
-        //        result = from p in result
-        //                 where p.ProductType.Contains(type)
-        //                 select p;
-        //    }
-        //    if (brand != null)
-        //    {
-        //        result = from p in result
-        //                 where p.Brand.BrandName.Contains(brand)
-        //                 select p;
-        //    }
-
-        //    return PartialView( await result.ToListAsync());
-        //}
 
         public IActionResult About()
         {
@@ -171,8 +135,6 @@ namespace Musebox_Web_Project.Controllers
             return View();
         }
 
-
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -182,16 +144,11 @@ namespace Musebox_Web_Project.Controllers
 
     }
 }
-public class Group<K, T>
-{
-    public K Key { get; set; }
-    public IEnumerable<T> Values { get; set; }
-}
+
 public class Stat
 {
     public string Key;
     public int Values;
-
 
     public Stat(string key, int values)
     {
