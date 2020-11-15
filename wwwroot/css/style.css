@@ -9,9 +9,15 @@ body {
 
 aside {
     width: 30%;
+    padding: 10px;
     float: right;
     font-style: italic;
     background-color: lightgray;
+}
+
+aside > p {
+    padding: 10px;
+    margin: 10px;
 }
 
 a {
