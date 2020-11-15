@@ -1,5 +1,5 @@
 ﻿@{ ViewData["Title"] = "Statistics";
-                Layout = "_Layout"; }
+    Layout = "_Layout"; }
 @using Musebox_Web_Project.Controllers
 
 <section id="home-statistics" class="home-statistics">
@@ -30,12 +30,13 @@
                 <tbody>
                     @if (ViewBag.data != null)
                     {
-        @foreach (var v in ViewBag.data as ICollection<Stat>)
-        {
-<tr>
-    <th> @v.Key</th>
-    <th>@v.Values</th>
-</tr>}}
+                        @foreach (var v in ViewBag.data as ICollection<Stat>)
+                        {
+                            <tr>
+                                <th> @v.Key</th>
+                                <th>@v.Values</th>
+                            </tr>
+}}
                 </tbody>
             </table>
 
@@ -45,7 +46,8 @@
                         table: 'datatable'
                     },
                     chart: {
-                        type: 'column'
+                        type: 'column',
+                        backgroundColor: 'transparent'
                     },
                     title: {
                         text: 'Type Statistics'
@@ -87,12 +89,13 @@
                 <tbody>
                     @if (ViewBag.data != null)
                     {
-        @foreach (var v in ViewBag.data2 as ICollection<Stat>)
-        {
-<tr>
-    <th> @v.Key</th>
-    <th>@v.Values</th>
-</tr>}}
+                        @foreach (var v in ViewBag.data2 as ICollection<Stat>)
+                        {
+                            <tr>
+                                <th> @v.Key</th>
+                                <th>@v.Values</th>
+                            </tr>
+}}
                 </tbody>
             </table>
 
@@ -102,7 +105,8 @@
                         table: 'datatable2'
                     },
                     chart: {
-                        type: 'pie'
+                        type: 'pie',
+                        backgroundColor: 'transparent'
                     },
                     title: {
                         text: 'Sales Statistics'
